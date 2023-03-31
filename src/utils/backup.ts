@@ -1,16 +1,17 @@
-import barba from '@barba/core';
-import { restartWebflow } from '@finsweet/ts-utils';
-import { gsap } from 'gsap';
+// Backup 31.03.23 - 15h41
 
 // barba.js transitions
 barba.init({
   debug: true,
   transitions: [
     {
-      name: 'left to right',
-      to: {
-        namespace: ['nft'],
-      },
+      name: 'default',
+      /* before() {
+            console.log('before');
+          },
+          beforeLeave() {
+            console.log('beforeLeave');
+          }, */
       async leave(data) {
         console.log('leave');
         console.log(data);
@@ -26,6 +27,12 @@ barba.init({
           ease: 'ease-out',
         });
       },
+      /* afterLeave() {
+            console.log('afterLeave');
+          },
+          beforeEnter() {
+            console.log('beforeEnter');
+          }, */
       async enter(data) {
         console.log('enter');
         console.log(data);
@@ -39,31 +46,23 @@ barba.init({
           duration: 0.5,
         });
       },
+      /* afterEnter() {
+            console.log('afterEnter');
+          },
+          after() {
+            console.log('after');
+          },  */
     },
   ],
-  views: [
-    {
-      namespace: 'app',
-      afterEnter() {
-        console.log('enter app');
-      },
-    },
-    {
-      namespace: 'nft',
-      afterEnter() {
-        console.log('enter nft');
-      },
-    },
-  ],
-}),
-  // scroll to the top of the page
-  barba.hooks.enter(() => {
-    window.scrollTo(0, 0);
-  });
+});
 
 // barba.js reset page for animations & co
 barba.hooks.after(async () => {
   await restartWebflow();
+  // Unload Weglot plugin
+  if (typeof Weglot !== 'undefined') {
+    await Weglot.unload();
+  }
 
   // TS interaction - w/ Barba
   const box = document.querySelector('.box');

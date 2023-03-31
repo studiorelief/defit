@@ -5318,51 +5318,60 @@
   var gsapWithCSS = gsap.registerPlugin(CSSPlugin) || gsap;
   var TweenMaxWithCSS = gsapWithCSS.core.Tween;
 
-  // src/utils/greet.ts
-  init_live_reload();
-
   // src/index.ts
   import_core.default.init({
+    debug: true,
     transitions: [
       {
-        name: "default",
-        /* before() {
-            console.log('before');
-          },
-          beforeLeave() {
-            console.log('beforeLeave');
-          }, */
+        name: "left to right",
+        to: {
+          namespace: ["nft"]
+        },
         async leave(data) {
           console.log("leave");
           console.log(data);
           await gsapWithCSS.to(data.current.container, {
             opacity: 0,
-            duration: 1,
-            x: "10vw"
+            duration: 0.5,
+            ease: "ease-out"
+          });
+          gsapWithCSS.to(".a--app-transition", {
+            width: "100vw",
+            duration: 0.5,
+            ease: "ease-out"
           });
         },
-        /* afterLeave() {
-            console.log('afterLeave');
-          },
-          beforeEnter() {
-            console.log('beforeEnter');
-          }, */
         async enter(data) {
           console.log("enter");
           console.log(data);
           await gsapWithCSS.to(data.next.container, {
             opacity: 1,
-            duration: 0.25
+            duration: 0.5
+          });
+          await gsapWithCSS.to(".a--app-transition", {
+            width: "0vw",
+            duration: 0.5
           });
         }
-        /* afterEnter() {
-            console.log('afterEnter');
-          },
-          after() {
-            console.log('after');
-          },  */
+      }
+    ],
+    views: [
+      {
+        namespace: "app",
+        afterEnter() {
+          console.log("enter app");
+        }
+      },
+      {
+        namespace: "nft",
+        afterEnter() {
+          console.log("enter nft");
+        }
       }
     ]
+  }), // scroll to the top of the page
+  import_core.default.hooks.enter(() => {
+    window.scrollTo(0, 0);
   });
   import_core.default.hooks.after(async () => {
     await restartWebflow();
