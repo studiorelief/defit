@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../src/index.css"],
+  "sourcesContent": [".test-box {\n    background-color: yellow;\n}\n\n.body {\n    color: yellow;\n}"],
+  "mappings": ";AAAA;AACI;AAAA;AAGJ;AACI;AAAA;",
+  "names": []
+}

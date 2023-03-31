@@ -5337,7 +5337,8 @@
           console.log(data);
           await gsapWithCSS.to(data.current.container, {
             opacity: 0,
-            duration: 0.5
+            duration: 1,
+            x: "10vw"
           });
         },
         /* afterLeave() {
@@ -5351,7 +5352,7 @@
           console.log(data);
           await gsapWithCSS.to(data.next.container, {
             opacity: 1,
-            duration: 0.5
+            duration: 0.25
           });
         }
         /* afterEnter() {
