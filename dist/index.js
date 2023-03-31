@@ -5323,15 +5323,61 @@
     debug: true,
     transitions: [
       {
+        // ANIM NFT
         name: "left to right",
         to: {
           namespace: ["nft"]
         },
+        // leave
         async leave(data) {
           console.log("leave");
           console.log(data);
           await gsapWithCSS.to(data.current.container, {
-            opacity: 0,
+            opacity: 1,
+            duration: 0.5,
+            ease: "ease-out"
+          });
+          gsapWithCSS.to(".a--nft-transition", {
+            width: "100vw",
+            duration: 0.5,
+            ease: "ease-out"
+          });
+        },
+        // enter
+        async enter(data) {
+          console.log("enter");
+          console.log(data);
+          await gsapWithCSS.to(data.next.container, {
+            opacity: 1,
+            duration: 0.5
+          });
+          gsapWithCSS.from(".a--nft-transitione", {
+            width: "100vw",
+            duration: 0.5
+          });
+          gsapWithCSS.to(".a--nft-transition", {
+            width: "0vw",
+            duration: 0.5
+          });
+          gsapWithCSS.to(".section_nft-hero", {
+            scaleX: 1,
+            duration: 0.5,
+            ease: "ease-out"
+          });
+        }
+      },
+      {
+        // ANIM APP
+        name: "right to left",
+        to: {
+          namespace: ["app"]
+        },
+        // leave
+        async leave(data) {
+          console.log("leave");
+          console.log(data);
+          await gsapWithCSS.to(data.current.container, {
+            opacity: 1,
             duration: 0.5,
             ease: "ease-out"
           });
@@ -5341,6 +5387,7 @@
             ease: "ease-out"
           });
         },
+        //enter
         async enter(data) {
           console.log("enter");
           console.log(data);
@@ -5348,9 +5395,15 @@
             opacity: 1,
             duration: 0.5
           });
-          await gsapWithCSS.to(".a--app-transition", {
+          gsapWithCSS.from(".a--app-transition", {
+            width: "100vw"
+            /* duration: 0.5,
+            ease: 'ease-out', */
+          });
+          gsapWithCSS.to(".a--app-transition", {
             width: "0vw",
-            duration: 0.5
+            duration: 0.5,
+            ease: "ease-out"
           });
         }
       }

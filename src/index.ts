@@ -7,18 +7,77 @@ barba.init({
   debug: true,
   transitions: [
     {
+      // ANIM NFT
       name: 'left to right',
       to: {
         namespace: ['nft'],
       },
+      // leave
       async leave(data) {
         console.log('leave');
         console.log(data);
+
         await gsap.to(data.current.container, {
-          opacity: 0,
+          opacity: 1,
           duration: 0.5,
           ease: 'ease-out',
         });
+
+        gsap.to('.a--nft-transition', {
+          width: '100vw',
+          duration: 0.5,
+          ease: 'ease-out',
+        });
+      },
+      // enter
+      async enter(data) {
+        console.log('enter');
+        console.log(data);
+
+        await gsap.to(data.next.container, {
+          opacity: 1,
+          duration: 0.5,
+        });
+
+        gsap.from('.a--nft-transitione', {
+          width: '100vw',
+          duration: 0.5,
+        });
+
+        gsap.to('.a--nft-transition', {
+          width: '0vw',
+          duration: 0.5,
+        });
+
+        gsap.to('.section_nft-hero', {
+          scaleX: 1,
+          duration: 0.5,
+          ease: 'ease-out',
+        });
+      },
+    },
+    {
+      // ANIM APP
+      name: 'right to left',
+      to: {
+        namespace: ['app'],
+      },
+      // leave
+      async leave(data) {
+        console.log('leave');
+        console.log(data);
+
+        await gsap.to(data.current.container, {
+          opacity: 1,
+          duration: 0.5,
+          ease: 'ease-out',
+        });
+
+        /*         gsap.to('.a--app-leave', {
+          width: '100vw',
+          duration: 0.5,
+          ease: 'ease-out',
+        }); */
 
         gsap.to('.a--app-transition', {
           width: '100vw',
@@ -26,17 +85,32 @@ barba.init({
           ease: 'ease-out',
         });
       },
+      //enter
       async enter(data) {
         console.log('enter');
         console.log(data);
+
         await gsap.to(data.next.container, {
           opacity: 1,
           duration: 0.5,
         });
 
-        await gsap.to('.a--app-transition', {
+        /* gsap.to('.a--app-leave', {
           width: '0vw',
           duration: 0.5,
+          ease: 'ease-out',
+        }); */
+
+        gsap.from('.a--app-transition', {
+          width: '100vw',
+          /* duration: 0.5,
+          ease: 'ease-out', */
+        });
+
+        gsap.to('.a--app-transition', {
+          width: '0vw',
+          duration: 0.5,
+          ease: 'ease-out',
         });
       },
     },
