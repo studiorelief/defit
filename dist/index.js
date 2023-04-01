@@ -5318,7 +5318,8 @@
   var gsapWithCSS = gsap.registerPlugin(CSSPlugin) || gsap;
   var TweenMaxWithCSS = gsapWithCSS.core.Tween;
 
-  // src/index.ts
+  // src/utils/fetch-data.ts
+  init_live_reload();
   async function get_dataHero() {
     const response = await fetch("https://api.360wellness.io/auth/public/hero/stat");
     const dataHero = await response.json();
@@ -5341,6 +5342,11 @@
     document.getElementById("telegram").textContent = socialData.telegram;
   }
   get_socialData();
+
+  // src/utils/weglot.ts
+  init_live_reload();
+
+  // src/index.ts
   import_core.default.init({
     debug: true,
     transitions: [
