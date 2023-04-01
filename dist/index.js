@@ -5319,6 +5319,28 @@
   var TweenMaxWithCSS = gsapWithCSS.core.Tween;
 
   // src/index.ts
+  async function get_dataHero() {
+    const response = await fetch("https://api.360wellness.io/auth/public/hero/stat");
+    const dataHero = await response.json();
+    document.getElementById("active-player").textContent = dataHero.numberOfPlayers;
+    document.getElementById("activities").textContent = dataHero.numberOfActivities;
+    document.getElementById("km").textContent = dataHero.totalDistance;
+  }
+  var activePlayers = document.querySelectorAll("#active-player");
+  activePlayers.forEach((player) => {
+    player.style.color = "#00C4FF";
+  });
+  get_dataHero();
+  async function get_socialData() {
+    const response = await fetch(
+      "https://api.360wellness.io/auth/public/social_community_members/stat"
+    );
+    const socialData = await response.json();
+    document.getElementById("twitter").textContent = socialData.twitter;
+    document.getElementById("discord").textContent = socialData.discord;
+    document.getElementById("telegram").textContent = socialData.telegram;
+  }
+  get_socialData();
   import_core.default.init({
     debug: true,
     transitions: [
@@ -5431,10 +5453,6 @@
     const box = document.querySelector(".box");
     box.addEventListener("click", () => {
       box.classList.toggle("is-big");
-    });
-    const activePlayers = document.querySelectorAll('[hero-data="active-players"]');
-    activePlayers.forEach((player) => {
-      player.style.color = "#00C4FF";
     });
   });
 })();
