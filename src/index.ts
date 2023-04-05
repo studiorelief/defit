@@ -135,16 +135,13 @@ barba.init({
 }),
   // scroll to the top of the page
   barba.hooks.enter(() => {
-    window.scrollTo(0, 0);
+    window.scrollTo(0, 0); // scroll to top of the page
+    setTimeout(() => {
+      window.scrollBy(0, 1); // scroll down 1 pixel
+    }, 1000); // wait 1 second before scrolling
   });
 
 // barba.js reset page for animations & co
 barba.hooks.after(async () => {
   await restartWebflow();
-
-  // TS interaction - w/ Barba
-  const box = document.querySelector('.box');
-  box.addEventListener('click', () => {
-    box.classList.toggle('is-big');
-  });
 });

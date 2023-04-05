@@ -5453,13 +5453,12 @@
   }), // scroll to the top of the page
   import_core.default.hooks.enter(() => {
     window.scrollTo(0, 0);
+    setTimeout(() => {
+      window.scrollBy(0, 1);
+    }, 1e3);
   });
   import_core.default.hooks.after(async () => {
     await restartWebflow();
-    const box = document.querySelector(".box");
-    box.addEventListener("click", () => {
-      box.classList.toggle("is-big");
-    });
   });
 })();
 /*! Bundled license information:
