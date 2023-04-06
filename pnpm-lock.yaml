@@ -18,12 +18,14 @@ specifiers:
   eslint-plugin-simple-import-sort: ^10.0.0
   gsap: ^3.11.5
   prettier: ^2.8.4
+  typed.js: ^2.0.15
   typescript: ^4.9.5
 
 dependencies:
   '@barba/core': 2.9.7
   '@finsweet/ts-utils': 0.39.0
   gsap: 3.11.5
+  typed.js: 2.0.15
 
 devDependencies:
   '@changesets/changelog-git': 0.1.14
@@ -2640,6 +2642,10 @@ packages:
       for-each: 0.3.3
       is-typed-array: 1.1.10
     dev: true
+
+  /typed.js/2.0.15:
+    resolution: {integrity: sha512-kQNtvm6+dEcUc5sdskEgV17rsdvimQNsDRHnp8PasBY85dYqVoo4TCanakSkfherMN+lZEko5ccMMKJpuR42Fw==}
+    dev: false
 
   /typescript/4.9.5:
     resolution: {integrity: sha512-1FXk9E2Hm+QzZQ7z+McJiHL4NW1F2EzMu9Nq9i3zAaGqibafqYwCVU6WyWAuyQRRzOlxou8xZSyXLEN8oKj24g==}

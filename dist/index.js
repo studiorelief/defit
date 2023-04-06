@@ -5343,8 +5343,60 @@
   }
   get_socialData();
 
+  // src/utils/typed.ts
+  init_live_reload();
+  function nftTyping() {
+    const viewportObserver = new IntersectionObserver((entries, observer) => {
+      if (entries[0].isIntersecting) {
+        const typed = new Typed("#typing", {
+          strings: ["BECOME A DEFIT <br>WEB3 PLAYER"],
+          typeSpeed: 100,
+          backSpeed: 0,
+          fadeOut: true,
+          showCursor: false
+        });
+        observer.unobserve(document.querySelector("#typing"));
+      }
+    });
+    viewportObserver.observe(document.querySelector("#typing"));
+  }
+  nftTyping();
+
   // src/utils/weglot.ts
   init_live_reload();
+  var script = document.createElement("script");
+  script.src = "https://cdn.weglot.com/weglot.min.js";
+  script.type = "text/javascript";
+  document.head.appendChild(script);
+  Weglot.initialize({
+    api_key: "wg_0a442ce2257ee6e6a96e7f04da6ad17c1"
+  });
+  Weglot.on("initialized", () => {
+    const currentLang = Weglot.getCurrentLang();
+    updateSW8FlagDropdownLinks(currentLang);
+  });
+  document.querySelectorAll(".wg-element-wrapper.sw8 [lang]").forEach((link) => {
+    link.addEventListener("click", function(e) {
+      e.preventDefault();
+      Weglot.switchTo(this.getAttribute("lang"));
+      updateSW8FlagDropdownLinks(this.getAttribute("lang"));
+    });
+  });
+  function updateSW8FlagDropdownLinks(currentLang) {
+    const $wrapper = document.querySelector(".wg-element-wrapper.sw8");
+    if ($wrapper.querySelector(".w-dropdown-toggle").getAttribute("lang") !== currentLang) {
+      const $activeLangLink = $wrapper.querySelector("[lang=" + currentLang + "]");
+      const childDiv = $activeLangLink.innerHTML;
+      const $toggle = $wrapper.querySelector(".w-dropdown-toggle");
+      const toggleDiv = $toggle.innerHTML;
+      $toggle.innerHTML = childDiv;
+      $activeLangLink.innerHTML = toggleDiv;
+      const lang = $activeLangLink.getAttribute("lang");
+      const toggleLang = $toggle.getAttribute("lang");
+      $toggle.setAttribute("lang", lang);
+      $activeLangLink.setAttribute("lang", toggleLang);
+    }
+  }
 
   // src/index.ts
   import_core.default.init({
@@ -5379,18 +5431,13 @@
             opacity: 1,
             duration: 0.5
           });
-          gsapWithCSS.from(".a--nft-transitione", {
-            width: "100vw",
+          gsapWithCSS.from(".a--nft-transition", {
+            left: "0vw",
             duration: 0.5
           });
           gsapWithCSS.to(".a--nft-transition", {
-            width: "0vw",
+            left: "100vw",
             duration: 0.5
-          });
-          gsapWithCSS.to(".section_nft-hero", {
-            scaleX: 1,
-            duration: 0.5,
-            ease: "ease-out"
           });
         }
       },
@@ -5424,14 +5471,12 @@
             duration: 0.5
           });
           gsapWithCSS.from(".a--app-transition", {
-            width: "100vw"
-            /* duration: 0.5,
-            ease: 'ease-out', */
+            right: "0vw",
+            duration: 0.5
           });
           gsapWithCSS.to(".a--app-transition", {
-            width: "0vw",
-            duration: 0.5,
-            ease: "ease-out"
+            right: "100vw",
+            duration: 0.5
           });
         }
       }

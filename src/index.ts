@@ -3,6 +3,7 @@ import { restartWebflow } from '@finsweet/ts-utils';
 import { gsap } from 'gsap';
 
 import {} from '$utils/fetch-data';
+import {} from '$utils/typed';
 import {} from '$utils/weglot';
 
 // barba.js transitions
@@ -42,20 +43,14 @@ barba.init({
           duration: 0.5,
         });
 
-        gsap.from('.a--nft-transitione', {
-          width: '100vw',
+        gsap.from('.a--nft-transition', {
+          left: '0vw',
           duration: 0.5,
         });
 
         gsap.to('.a--nft-transition', {
-          width: '0vw',
+          left: '100vw',
           duration: 0.5,
-        });
-
-        gsap.to('.section_nft-hero', {
-          scaleX: 1,
-          duration: 0.5,
-          ease: 'ease-out',
         });
       },
     },
@@ -76,18 +71,13 @@ barba.init({
           ease: 'ease-out',
         });
 
-        /*         gsap.to('.a--app-leave', {
-          width: '100vw',
-          duration: 0.5,
-          ease: 'ease-out',
-        }); */
-
         gsap.to('.a--app-transition', {
           width: '100vw',
           duration: 0.5,
           ease: 'ease-out',
         });
       },
+
       //enter
       async enter(data) {
         console.log('enter');
@@ -98,22 +88,14 @@ barba.init({
           duration: 0.5,
         });
 
-        /* gsap.to('.a--app-leave', {
-          width: '0vw',
-          duration: 0.5,
-          ease: 'ease-out',
-        }); */
-
         gsap.from('.a--app-transition', {
-          width: '100vw',
-          /* duration: 0.5,
-          ease: 'ease-out', */
+          right: '0vw',
+          duration: 0.5,
         });
 
         gsap.to('.a--app-transition', {
-          width: '0vw',
+          right: '100vw',
           duration: 0.5,
-          ease: 'ease-out',
         });
       },
     },
