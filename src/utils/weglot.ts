@@ -1,9 +1,18 @@
-function callWeglot() {
-  /*   // weglot plugin
-  const script = document.createElement('script');
-  script.src = 'https://cdn.weglot.com/weglot.min.js';
-  script.type = 'text/javascript';
-  document.head.appendChild(script); */
+function loadWeglotScript() {
+  return new Promise((resolve) => {
+    const script = document.createElement('script');
+    script.src = 'https://cdn.weglot.com/weglot.min.js';
+    script.type = 'text/javascript';
+    script.async = true;
+    script.onload = () => {
+      resolve();
+    };
+    document.head.appendChild(script);
+  });
+}
+
+async function callWeglot() {
+  await loadWeglotScript();
 
   // init Weglot
   Weglot.initialize({
@@ -30,28 +39,28 @@ function callWeglot() {
       updateSW8FlagDropdownLinks(this.getAttribute('lang'));
     });
   });
+}
 
-  // updateFlagDropdownLinks function
-  function updateSW8FlagDropdownLinks(currentLang) {
-    // get the wrapper element
-    const $wrapper = document.querySelector('.wg-element-wrapper.sw8');
-    // if the .w-dropdown-toggle is not the current active language
-    if ($wrapper.querySelector('.w-dropdown-toggle').getAttribute('lang') !== currentLang) {
-      // swap the dropdown toggle's innerHTML with the current active language link innerHTML
-      const $activeLangLink = $wrapper.querySelector('[lang=' + currentLang + ']');
-      const childDiv = $activeLangLink.innerHTML;
-      const $toggle = $wrapper.querySelector('.w-dropdown-toggle');
-      const toggleDiv = $toggle.innerHTML;
-      $toggle.innerHTML = childDiv;
-      $activeLangLink.innerHTML = toggleDiv;
+// updateFlagDropdownLinks function
+function updateSW8FlagDropdownLinks(currentLang) {
+  // get the wrapper element
+  const $wrapper = document.querySelector('.wg-element-wrapper.sw8');
+  // if the .w-dropdown-toggle is not the current active language
+  if ($wrapper.querySelector('.w-dropdown-toggle').getAttribute('lang') !== currentLang) {
+    // swap the dropdown toggle's innerHTML with the current active language link innerHTML
+    const $activeLangLink = $wrapper.querySelector('[lang=' + currentLang + ']');
+    const childDiv = $activeLangLink.innerHTML;
+    const $toggle = $wrapper.querySelector('.w-dropdown-toggle');
+    const toggleDiv = $toggle.innerHTML;
+    $toggle.innerHTML = childDiv;
+    $activeLangLink.innerHTML = toggleDiv;
 
-      // swap the dropdown toggle's lang attr with the current active language link lang attr
-      const lang = $activeLangLink.getAttribute('lang');
-      const toggleLang = $toggle.getAttribute('lang');
-      $toggle.setAttribute('lang', lang);
-      $activeLangLink.setAttribute('lang', toggleLang);
-    }
+    // swap the dropdown toggle's lang attr with the current active language link lang attr
+    const lang = $activeLangLink.getAttribute('lang');
+    const toggleLang = $toggle.getAttribute('lang');
+    $toggle.setAttribute('lang', lang);
+    $activeLangLink.setAttribute('lang', toggleLang);
   }
 }
 
-export { callWeglot };
+export { callWeglot, loadWeglotScript };
