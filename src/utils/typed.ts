@@ -20,4 +20,4 @@ function nftTyping() {
   viewportObserver.observe(document.querySelector('#typing'));
 }
 
-nftTyping();
+export { nftTyping };

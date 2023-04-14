@@ -12,7 +12,7 @@ activePlayers.forEach((player) => {
   player.style.color = '#00C4FF';
 });
 
-get_dataHero();
+export { get_dataHero };
 
 // fetch social data in app
 async function get_socialData() {
@@ -25,4 +25,4 @@ async function get_socialData() {
   document.getElementById('telegram').textContent = socialData.telegram;
 }
 
-get_socialData();
+export { get_socialData };

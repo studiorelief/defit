@@ -405,11 +405,11 @@
           } catch (t3) {
             return Promise.reject(t3);
           }
-        }, $ = d, _ = { __proto__: null, update: L, nextTick: function() {
+        }, $2 = d, _ = { __proto__: null, update: L, nextTick: function() {
           return new Promise(function(t2) {
             window.requestAnimationFrame(t2);
           });
-        }, pathToRegexp: $ }, q = function() {
+        }, pathToRegexp: $2 }, q = function() {
           return window.location.origin;
         }, B = function(t2) {
           return void 0 === t2 && (t2 = window.location.href), U(t2).port;
@@ -524,7 +524,7 @@
             else {
               var n2 = Array.isArray(t3) ? t3 : [t3];
               this.P = n2.map(function(t4) {
-                return $(t4);
+                return $2(t4);
               });
             }
           }
@@ -1039,59 +1039,6 @@
   // src/index.ts
   init_live_reload();
   var import_core = __toESM(require_barba_umd(), 1);
-
-  // node_modules/.pnpm/@finsweet+ts-utils@0.39.0/node_modules/@finsweet/ts-utils/dist/webflow/index.js
-  init_live_reload();
-
-  // node_modules/.pnpm/@finsweet+ts-utils@0.39.0/node_modules/@finsweet/ts-utils/dist/webflow/getSiteId.js
-  init_live_reload();
-  var getSiteId = (page = document) => page.documentElement.getAttribute("data-wf-site");
-
-  // node_modules/.pnpm/@finsweet+ts-utils@0.39.0/node_modules/@finsweet/ts-utils/dist/webflow/restartWebflow.js
-  init_live_reload();
-  var restartWebflow = async (modules) => {
-    const { Webflow } = window;
-    if (!Webflow || !("destroy" in Webflow) || !("ready" in Webflow) || !("require" in Webflow))
-      return;
-    if (modules && !modules.length)
-      return;
-    if (!modules) {
-      Webflow.destroy();
-      Webflow.ready();
-    }
-    if (!modules || modules.includes("ix2")) {
-      const ix2 = Webflow.require("ix2");
-      if (ix2) {
-        const { store, actions } = ix2;
-        const { eventState } = store.getState().ixSession;
-        const stateEntries = Object.entries(eventState);
-        if (!modules)
-          ix2.destroy();
-        ix2.init();
-        await Promise.all(stateEntries.map((state) => store.dispatch(actions.eventStateChanged(...state))));
-      }
-    }
-    if (!modules || modules.includes("commerce")) {
-      const commerce = Webflow.require("commerce");
-      const siteId = getSiteId();
-      if (commerce && siteId) {
-        commerce.destroy();
-        commerce.init({ siteId, apiUrl: "https://render.webflow.com" });
-      }
-    }
-    if (modules?.includes("lightbox"))
-      Webflow.require("lightbox")?.ready();
-    if (modules?.includes("slider")) {
-      const slider = Webflow.require("slider");
-      if (slider) {
-        slider.redraw();
-        slider.ready();
-      }
-    }
-    if (modules?.includes("tabs"))
-      Webflow.require("tabs")?.redraw();
-    return new Promise((resolve) => Webflow.push(() => resolve(void 0)));
-  };
 
   // node_modules/.pnpm/gsap@3.11.5/node_modules/gsap/index.js
   init_live_reload();
@@ -5331,7 +5278,6 @@
   activePlayers.forEach((player) => {
     player.style.color = "#00C4FF";
   });
-  get_dataHero();
   async function get_socialData() {
     const response = await fetch(
       "https://api.360wellness.io/auth/public/social_community_members/stat"
@@ -5341,7 +5287,6 @@
     document.getElementById("discord").textContent = socialData.discord;
     document.getElementById("telegram").textContent = socialData.telegram;
   }
-  get_socialData();
 
   // src/utils/typed.ts
   init_live_reload();
@@ -5360,150 +5305,127 @@
     });
     viewportObserver.observe(document.querySelector("#typing"));
   }
-  nftTyping();
-
-  // src/utils/weglot.ts
-  init_live_reload();
-  var script = document.createElement("script");
-  script.src = "https://cdn.weglot.com/weglot.min.js";
-  script.type = "text/javascript";
-  document.head.appendChild(script);
-  Weglot.initialize({
-    api_key: "wg_0a442ce2257ee6e6a96e7f04da6ad17c1"
-  });
-  Weglot.on("initialized", () => {
-    const currentLang = Weglot.getCurrentLang();
-    updateSW8FlagDropdownLinks(currentLang);
-  });
-  document.querySelectorAll(".wg-element-wrapper.sw8 [lang]").forEach((link) => {
-    link.addEventListener("click", function(e) {
-      e.preventDefault();
-      Weglot.switchTo(this.getAttribute("lang"));
-      updateSW8FlagDropdownLinks(this.getAttribute("lang"));
-    });
-  });
-  function updateSW8FlagDropdownLinks(currentLang) {
-    const $wrapper = document.querySelector(".wg-element-wrapper.sw8");
-    if ($wrapper.querySelector(".w-dropdown-toggle").getAttribute("lang") !== currentLang) {
-      const $activeLangLink = $wrapper.querySelector("[lang=" + currentLang + "]");
-      const childDiv = $activeLangLink.innerHTML;
-      const $toggle = $wrapper.querySelector(".w-dropdown-toggle");
-      const toggleDiv = $toggle.innerHTML;
-      $toggle.innerHTML = childDiv;
-      $activeLangLink.innerHTML = toggleDiv;
-      const lang = $activeLangLink.getAttribute("lang");
-      const toggleLang = $toggle.getAttribute("lang");
-      $toggle.setAttribute("lang", lang);
-      $activeLangLink.setAttribute("lang", toggleLang);
-    }
-  }
 
   // src/index.ts
+  function resetWebflow(data) {
+    const parser = new DOMParser();
+    const dom = parser.parseFromString(data.next.html, "text/html");
+    const webflowPageId = $(dom).find("html").attr("data-wf-page");
+    $("html").attr("data-wf-page", webflowPageId);
+    window.Webflow && window.Webflow.destroy();
+    window.Webflow && window.Webflow.ready();
+    window.Webflow && window.Webflow.require("ix2").init();
+  }
   import_core.default.init({
+    preventRunning: true,
     debug: true,
-    transitions: [
-      {
-        // ANIM NFT
-        name: "left to right",
-        to: {
-          namespace: ["nft"]
-        },
-        // leave
-        async leave(data) {
-          console.log("leave");
-          console.log(data);
-          await gsapWithCSS.to(data.current.container, {
-            opacity: 1,
-            duration: 0.5,
-            ease: "ease-out"
-          });
-          gsapWithCSS.to(".a--nft-transition", {
-            width: "100vw",
-            duration: 0.5,
-            ease: "ease-out"
-          });
-        },
-        // enter
-        async enter(data) {
-          console.log("enter");
-          console.log(data);
-          await gsapWithCSS.to(data.next.container, {
-            opacity: 1,
-            duration: 0.5
-          });
-          gsapWithCSS.from(".a--nft-transition", {
-            left: "0vw",
-            duration: 0.5
-          });
-          gsapWithCSS.to(".a--nft-transition", {
-            left: "100vw",
-            duration: 0.5
-          });
-        }
-      },
-      {
-        // ANIM APP
-        name: "right to left",
-        to: {
-          namespace: ["app"]
-        },
-        // leave
-        async leave(data) {
-          console.log("leave");
-          console.log(data);
-          await gsapWithCSS.to(data.current.container, {
-            opacity: 1,
-            duration: 0.5,
-            ease: "ease-out"
-          });
-          gsapWithCSS.to(".a--app-transition", {
-            width: "100vw",
-            duration: 0.5,
-            ease: "ease-out"
-          });
-        },
-        //enter
-        async enter(data) {
-          console.log("enter");
-          console.log(data);
-          await gsapWithCSS.to(data.next.container, {
-            opacity: 1,
-            duration: 0.5
-          });
-          gsapWithCSS.from(".a--app-transition", {
-            right: "0vw",
-            duration: 0.5
-          });
-          gsapWithCSS.to(".a--app-transition", {
-            right: "100vw",
-            duration: 0.5
-          });
-        }
-      }
-    ],
     views: [
       {
         namespace: "app",
         afterEnter() {
           console.log("enter app");
+          get_dataHero();
+          get_socialData();
         }
       },
       {
         namespace: "nft",
         afterEnter() {
           console.log("enter nft");
+          nftTyping();
+        }
+      }
+    ],
+    transitions: [
+      {
+        // ANIM APP
+        name: "right to left",
+        sync: true,
+        to: {
+          namespace: ["app"]
+        },
+        // leave
+        leave(data) {
+          console.log("leave > app");
+          console.log(data);
+          return gsapWithCSS.fromTo(
+            data.current.container,
+            { xPercent: 0 },
+            {
+              xPercent: 100,
+              ease: "power2.inOut",
+              duration: 0.8
+            }
+          );
+        },
+        //enter
+        enter(data) {
+          console.log("enter > app");
+          console.log(data);
+          const transitionData = data;
+          return gsapWithCSS.fromTo(
+            data.next.container,
+            { xPercent: -100 },
+            {
+              xPercent: 0,
+              ease: "power2.inOut",
+              duration: 0.8,
+              onComplete: () => {
+                resetWebflow(transitionData);
+                window.scrollTo(0, 0);
+                setTimeout(() => {
+                  window.scrollBy(0, 1);
+                }, 1e3);
+              }
+            }
+          );
+        }
+      },
+      {
+        // ANIM NFT
+        name: "left to right",
+        sync: true,
+        to: {
+          namespace: ["nft"]
+        },
+        // leave
+        leave(data) {
+          console.log("leave > nft");
+          console.log(data);
+          return gsapWithCSS.fromTo(
+            data.current.container,
+            { xPercent: 0 },
+            {
+              xPercent: -100,
+              ease: "power2.inOut",
+              duration: 0.8
+            }
+          );
+        },
+        // enter
+        enter(data) {
+          console.log("enter > nft");
+          console.log(data);
+          const transitionData = data;
+          return gsapWithCSS.fromTo(
+            data.next.container,
+            { xPercent: 100 },
+            {
+              xPercent: 0,
+              ease: "power2.inOut",
+              duration: 0.8,
+              onComplete: () => {
+                resetWebflow(transitionData);
+                window.scrollTo(0, 0);
+                setTimeout(() => {
+                  window.scrollBy(0, 1);
+                }, 1e3);
+              }
+            }
+          );
         }
       }
     ]
-  }), // scroll to the top of the page
-  import_core.default.hooks.enter(() => {
-    window.scrollTo(0, 0);
-    setTimeout(() => {
-      window.scrollBy(0, 1);
-    }, 1e3);
-  });
-  import_core.default.hooks.after(async () => {
-    await restartWebflow();
   });
 })();
 /*! Bundled license information:

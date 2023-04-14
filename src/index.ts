@@ -1,129 +1,138 @@
 import barba from '@barba/core';
-import { restartWebflow } from '@finsweet/ts-utils';
 import { gsap } from 'gsap';
 
-import {} from '$utils/fetch-data';
-import {} from '$utils/typed';
-import {} from '$utils/weglot';
+import { get_dataHero, get_socialData } from '$utils/fetch-data';
+import { nftTyping } from '$utils/typed';
+/* import { callWeglot } from '$utils/weglot'; */
+
+// reset webflow interactions
+function resetWebflow(data) {
+  const parser = new DOMParser();
+  const dom = parser.parseFromString(data.next.html, 'text/html');
+  const webflowPageId = $(dom).find('html').attr('data-wf-page');
+  $('html').attr('data-wf-page', webflowPageId);
+  window.Webflow && window.Webflow.destroy();
+  window.Webflow && window.Webflow.ready();
+  window.Webflow && window.Webflow.require('ix2').init();
+}
+
+/* callWeglot(); */
 
 // barba.js transitions
 barba.init({
+  preventRunning: true,
   debug: true,
-  transitions: [
-    {
-      // ANIM NFT
-      name: 'left to right',
-      to: {
-        namespace: ['nft'],
-      },
-      // leave
-      async leave(data) {
-        console.log('leave');
-        console.log(data);
-
-        await gsap.to(data.current.container, {
-          opacity: 1,
-          duration: 0.5,
-          ease: 'ease-out',
-        });
-
-        gsap.to('.a--nft-transition', {
-          width: '100vw',
-          duration: 0.5,
-          ease: 'ease-out',
-        });
-      },
-      // enter
-      async enter(data) {
-        console.log('enter');
-        console.log(data);
-
-        await gsap.to(data.next.container, {
-          opacity: 1,
-          duration: 0.5,
-        });
-
-        gsap.from('.a--nft-transition', {
-          left: '0vw',
-          duration: 0.5,
-        });
-
-        gsap.to('.a--nft-transition', {
-          left: '100vw',
-          duration: 0.5,
-        });
-      },
-    },
-    {
-      // ANIM APP
-      name: 'right to left',
-      to: {
-        namespace: ['app'],
-      },
-      // leave
-      async leave(data) {
-        console.log('leave');
-        console.log(data);
-
-        await gsap.to(data.current.container, {
-          opacity: 1,
-          duration: 0.5,
-          ease: 'ease-out',
-        });
-
-        gsap.to('.a--app-transition', {
-          width: '100vw',
-          duration: 0.5,
-          ease: 'ease-out',
-        });
-      },
-
-      //enter
-      async enter(data) {
-        console.log('enter');
-        console.log(data);
-
-        await gsap.to(data.next.container, {
-          opacity: 1,
-          duration: 0.5,
-        });
-
-        gsap.from('.a--app-transition', {
-          right: '0vw',
-          duration: 0.5,
-        });
-
-        gsap.to('.a--app-transition', {
-          right: '100vw',
-          duration: 0.5,
-        });
-      },
-    },
-  ],
   views: [
     {
       namespace: 'app',
       afterEnter() {
         console.log('enter app');
+        get_dataHero();
+        get_socialData();
       },
     },
     {
       namespace: 'nft',
       afterEnter() {
         console.log('enter nft');
+        nftTyping();
       },
     },
   ],
-}),
-  // scroll to the top of the page
-  barba.hooks.enter(() => {
-    window.scrollTo(0, 0); // scroll to top of the page
-    setTimeout(() => {
-      window.scrollBy(0, 1); // scroll down 1 pixel
-    }, 1000); // wait 1 second before scrolling
-  });
+  transitions: [
+    {
+      // ANIM APP
+      name: 'right to left',
+      sync: true,
+      to: {
+        namespace: ['app'],
+      },
+      // leave
+      leave(data) {
+        console.log('leave > app');
+        console.log(data);
+        return gsap.fromTo(
+          data.current.container,
+          { xPercent: 0 },
+          {
+            xPercent: 100,
+            ease: 'power2.inOut',
+            duration: 0.8,
+          }
+        );
+      },
 
-// barba.js reset page for animations & co
-barba.hooks.after(async () => {
-  await restartWebflow();
+      //enter
+      enter(data) {
+        console.log('enter > app');
+        console.log(data);
+        const transitionData = data;
+        return gsap.fromTo(
+          data.next.container,
+          { xPercent: -100 },
+          {
+            xPercent: 0,
+            ease: 'power2.inOut',
+            duration: 0.8,
+            onComplete: () => {
+              resetWebflow(transitionData);
+              window.scrollTo(0, 0); // scroll to top of the page
+              setTimeout(() => {
+                window.scrollBy(0, 1); // scroll down 1 pixel
+              }, 1000);
+            },
+          }
+        );
+      },
+    },
+    {
+      // ANIM NFT
+      name: 'left to right',
+      sync: true,
+      to: {
+        namespace: ['nft'],
+      },
+      // leave
+      leave(data) {
+        console.log('leave > nft');
+        console.log(data);
+        return gsap.fromTo(
+          data.current.container,
+          { xPercent: 0 },
+          {
+            xPercent: -100,
+            ease: 'power2.inOut',
+            duration: 0.8,
+          }
+        );
+      },
+      // enter
+      enter(data) {
+        console.log('enter > nft');
+        console.log(data);
+        const transitionData = data;
+        return gsap.fromTo(
+          data.next.container,
+          { xPercent: 100 },
+          {
+            xPercent: 0,
+            ease: 'power2.inOut',
+            duration: 0.8,
+            onComplete: () => {
+              resetWebflow(transitionData);
+              window.scrollTo(0, 0); // scroll to top of the page
+              setTimeout(() => {
+                window.scrollBy(0, 1); // scroll down 1 pixel
+              }, 1000);
+            },
+          }
+        );
+      },
+    },
+  ],
 });
+
+/* barba.hooks.before(async () => {
+  console.log('hooks > before');
+  await restartWebflow();
+}); */
