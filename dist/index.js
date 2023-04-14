@@ -5267,25 +5267,31 @@
 
   // src/utils/fetch-data.ts
   init_live_reload();
+  function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
   async function get_dataHero() {
     const response = await fetch("https://api.360wellness.io/auth/public/hero/stat");
     const dataHero = await response.json();
-    document.getElementById("active-player").textContent = dataHero.numberOfPlayers;
-    document.getElementById("activities").textContent = dataHero.numberOfActivities;
-    document.getElementById("km").textContent = dataHero.totalDistance;
+    document.getElementById("active-player").textContent = numberWithCommas(dataHero.numberOfPlayers);
+    document.getElementById("activities").textContent = numberWithCommas(dataHero.numberOfActivities);
+    document.getElementById("km").textContent = numberWithCommas(dataHero.totalDistance);
   }
   var activePlayers = document.querySelectorAll("#active-player");
   activePlayers.forEach((player) => {
     player.style.color = "#00C4FF";
   });
+  function getThousandsValue(x) {
+    return Math.floor(x / 1e3);
+  }
   async function get_socialData() {
     const response = await fetch(
       "https://api.360wellness.io/auth/public/social_community_members/stat"
     );
     const socialData = await response.json();
-    document.getElementById("twitter").textContent = socialData.twitter;
-    document.getElementById("discord").textContent = socialData.discord;
-    document.getElementById("telegram").textContent = socialData.telegram;
+    document.getElementById("twitter").textContent = getThousandsValue(socialData.twitter);
+    document.getElementById("discord").textContent = getThousandsValue(socialData.discord);
+    document.getElementById("telegram").textContent = getThousandsValue(socialData.telegram);
   }
 
   // src/utils/typed.ts
@@ -5305,6 +5311,9 @@
     });
     viewportObserver.observe(document.querySelector("#typing"));
   }
+
+  // src/utils/weglot.ts
+  init_live_reload();
 
   // src/index.ts
   function resetWebflow(data) {

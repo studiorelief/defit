@@ -3,7 +3,7 @@ import { gsap } from 'gsap';
 
 import { get_dataHero, get_socialData } from '$utils/fetch-data';
 import { nftTyping } from '$utils/typed';
-/* import { callWeglot } from '$utils/weglot'; */
+import { callWeglot } from '$utils/weglot';
 
 // reset webflow interactions
 function resetWebflow(data) {
@@ -15,8 +15,6 @@ function resetWebflow(data) {
   window.Webflow && window.Webflow.ready();
   window.Webflow && window.Webflow.require('ix2').init();
 }
-
-/* callWeglot(); */
 
 // barba.js transitions
 barba.init({
