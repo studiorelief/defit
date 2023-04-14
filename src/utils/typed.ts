@@ -1,3 +1,13 @@
+function loadTypedScript() {
+  return new Promise((resolve, reject) => {
+    const script = document.createElement('script');
+    script.src = 'https://unpkg.com/typed.js@2.0.132/dist/typed.umd.js';
+    script.onload = () => resolve();
+    script.onerror = () => reject(new Error('Failed to load typed.js script'));
+    document.head.appendChild(script);
+  });
+}
+
 function nftTyping() {
   // If the #typed3 element comes into the viewport, this callback will be run
   const viewportObserver = new IntersectionObserver((entries, observer) => {
@@ -20,4 +30,4 @@ function nftTyping() {
   viewportObserver.observe(document.querySelector('#typing'));
 }
 
-export { nftTyping };
+export { loadTypedScript, nftTyping };

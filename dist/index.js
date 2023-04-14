@@ -5294,8 +5294,30 @@
     document.getElementById("telegram").textContent = getThousandsValue(socialData.telegram);
   }
 
+  // src/utils/modal-viewer.ts
+  init_live_reload();
+  function loadModelViewerScript() {
+    return new Promise((resolve, reject) => {
+      const script = document.createElement("script");
+      script.type = "module";
+      script.src = "https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js";
+      script.onload = () => resolve();
+      script.onerror = () => reject(new Error("Failed to load model-viewer script"));
+      document.head.appendChild(script);
+    });
+  }
+
   // src/utils/typed.ts
   init_live_reload();
+  function loadTypedScript() {
+    return new Promise((resolve, reject) => {
+      const script = document.createElement("script");
+      script.src = "https://unpkg.com/typed.js@2.0.132/dist/typed.umd.js";
+      script.onload = () => resolve();
+      script.onerror = () => reject(new Error("Failed to load typed.js script"));
+      document.head.appendChild(script);
+    });
+  }
   function nftTyping() {
     const viewportObserver = new IntersectionObserver((entries, observer) => {
       if (entries[0].isIntersecting) {
@@ -5314,8 +5336,62 @@
 
   // src/utils/weglot.ts
   init_live_reload();
+  function loadWeglotScript() {
+    return new Promise((resolve) => {
+      const script = document.createElement("script");
+      script.src = "https://cdn.weglot.com/weglot.min.js";
+      script.type = "text/javascript";
+      script.async = true;
+      script.onload = () => {
+        resolve();
+      };
+      document.head.appendChild(script);
+    });
+  }
+  async function callWeglot() {
+    await loadWeglotScript();
+    Weglot.initialize({
+      api_key: "wg_0a442ce2257ee6e6a96e7f04da6ad17c1"
+    });
+    Weglot.on("initialized", () => {
+      const currentLang = Weglot.getCurrentLang();
+      updateSW8FlagDropdownLinks(currentLang);
+    });
+    document.querySelectorAll(".wg-element-wrapper.sw8 [lang]").forEach((link) => {
+      link.addEventListener("click", function(e) {
+        e.preventDefault();
+        Weglot.switchTo(this.getAttribute("lang"));
+        updateSW8FlagDropdownLinks(this.getAttribute("lang"));
+      });
+    });
+  }
+  function updateSW8FlagDropdownLinks(currentLang) {
+    const $wrapper = document.querySelector(".wg-element-wrapper.sw8");
+    if ($wrapper.querySelector(".w-dropdown-toggle").getAttribute("lang") !== currentLang) {
+      const $activeLangLink = $wrapper.querySelector("[lang=" + currentLang + "]");
+      const childDiv = $activeLangLink.innerHTML;
+      const $toggle = $wrapper.querySelector(".w-dropdown-toggle");
+      const toggleDiv = $toggle.innerHTML;
+      $toggle.innerHTML = childDiv;
+      $activeLangLink.innerHTML = toggleDiv;
+      const lang = $activeLangLink.getAttribute("lang");
+      const toggleLang = $toggle.getAttribute("lang");
+      $toggle.setAttribute("lang", lang);
+      $activeLangLink.setAttribute("lang", toggleLang);
+    }
+  }
 
   // src/index.ts
+  callWeglot().then(() => {
+    console.log("Weglot script loaded and initialized successfully");
+  }).catch((error) => {
+    console.error("Error loading and initializing Weglot script:", error);
+  });
+  loadModelViewerScript().then(() => {
+    console.log("Model viewer script loaded successfully");
+  }).catch((error) => {
+    console.error("Error loading model viewer script:", error);
+  });
   function resetWebflow(data) {
     const parser = new DOMParser();
     const dom = parser.parseFromString(data.next.html, "text/html");
@@ -5327,21 +5403,31 @@
   }
   import_core.default.init({
     preventRunning: true,
+    cache: false,
     debug: true,
     views: [
       {
         namespace: "app",
-        afterEnter() {
-          console.log("enter app");
+        beforeEnter() {
           get_dataHero();
           get_socialData();
+        },
+        afterEnter() {
+          console.log("enter app");
         }
       },
       {
         namespace: "nft",
+        beforeEnter() {
+          loadTypedScript().then(() => {
+            console.log("Typed.js script loaded successfully");
+            nftTyping();
+          }).catch((error) => {
+            console.error("Error loading typed.js script:", error);
+          });
+        },
         afterEnter() {
           console.log("enter nft");
-          nftTyping();
         }
       }
     ],

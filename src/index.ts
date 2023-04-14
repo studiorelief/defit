@@ -2,8 +2,27 @@ import barba from '@barba/core';
 import { gsap } from 'gsap';
 
 import { get_dataHero, get_socialData } from '$utils/fetch-data';
-import { nftTyping } from '$utils/typed';
+import { loadModelViewerScript } from '$utils/modal-viewer';
+import { loadTypedScript, nftTyping } from '$utils/typed';
 import { callWeglot } from '$utils/weglot';
+
+// Load Weglot
+callWeglot()
+  .then(() => {
+    console.log('Weglot script loaded and initialized successfully');
+  })
+  .catch((error) => {
+    console.error('Error loading and initializing Weglot script:', error);
+  });
+
+// load modalviewser
+loadModelViewerScript()
+  .then(() => {
+    console.log('Model viewer script loaded successfully');
+  })
+  .catch((error) => {
+    console.error('Error loading model viewer script:', error);
+  });
 
 // reset webflow interactions
 function resetWebflow(data) {
@@ -19,21 +38,34 @@ function resetWebflow(data) {
 // barba.js transitions
 barba.init({
   preventRunning: true,
+  cache: false,
   debug: true,
   views: [
     {
       namespace: 'app',
-      afterEnter() {
-        console.log('enter app');
+      beforeEnter() {
         get_dataHero();
         get_socialData();
+      },
+      afterEnter() {
+        console.log('enter app');
       },
     },
     {
       namespace: 'nft',
+      beforeEnter() {
+        // load typed
+        loadTypedScript()
+          .then(() => {
+            console.log('Typed.js script loaded successfully');
+            nftTyping();
+          })
+          .catch((error) => {
+            console.error('Error loading typed.js script:', error);
+          });
+      },
       afterEnter() {
         console.log('enter nft');
-        nftTyping();
       },
     },
   ],
@@ -129,8 +161,3 @@ barba.init({
     },
   ],
 });
-
-/* barba.hooks.before(async () => {
-  console.log('hooks > before');
-  await restartWebflow();
-}); */
