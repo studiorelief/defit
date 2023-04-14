@@ -2,6 +2,7 @@ import barba from '@barba/core';
 import { gsap } from 'gsap';
 
 import { get_dataHero, get_socialData } from '$utils/fetch-data';
+import { pTransAppLeft, pTransNftRight } from '$utils/gsap-animation';
 import { loadModelViewerScript } from '$utils/modal-viewer';
 import { loadTypedScript, nftTyping } from '$utils/typed';
 import { callWeglot } from '$utils/weglot';
@@ -81,38 +82,20 @@ barba.init({
       leave(data) {
         console.log('leave > app');
         console.log(data);
-        return gsap.fromTo(
-          data.current.container,
-          { xPercent: 0 },
-          {
-            xPercent: 100,
-            ease: 'power2.inOut',
-            duration: 0.8,
-          }
-        );
+        const transitionData = data;
+        pTransAppLeft(() => {
+          resetWebflow(transitionData);
+          window.scrollTo(0, 0); // scroll to top of the page
+          setTimeout(() => {
+            window.scrollBy(0, 1); // scroll down 1 pixel
+          }, 1000);
+        });
       },
 
       //enter
       enter(data) {
         console.log('enter > app');
         console.log(data);
-        const transitionData = data;
-        return gsap.fromTo(
-          data.next.container,
-          { xPercent: -100 },
-          {
-            xPercent: 0,
-            ease: 'power2.inOut',
-            duration: 0.8,
-            onComplete: () => {
-              resetWebflow(transitionData);
-              window.scrollTo(0, 0); // scroll to top of the page
-              setTimeout(() => {
-                window.scrollBy(0, 1); // scroll down 1 pixel
-              }, 1000);
-            },
-          }
-        );
       },
     },
     {
@@ -122,41 +105,25 @@ barba.init({
       to: {
         namespace: ['nft'],
       },
-      // leave
+
+      // leave - v1
       leave(data) {
         console.log('leave > nft');
         console.log(data);
-        return gsap.fromTo(
-          data.current.container,
-          { xPercent: 0 },
-          {
-            xPercent: -100,
-            ease: 'power2.inOut',
-            duration: 0.8,
-          }
-        );
+        const transitionData = data;
+
+        pTransNftRight(() => {
+          resetWebflow(transitionData);
+          window.scrollTo(0, 0); // scroll to top of the page
+          setTimeout(() => {
+            window.scrollBy(0, 1); // scroll down 1 pixel
+          }, 1000);
+        });
       },
-      // enter
+      // enter - v1
       enter(data) {
         console.log('enter > nft');
         console.log(data);
-        const transitionData = data;
-        return gsap.fromTo(
-          data.next.container,
-          { xPercent: 100 },
-          {
-            xPercent: 0,
-            ease: 'power2.inOut',
-            duration: 0.8,
-            onComplete: () => {
-              resetWebflow(transitionData);
-              window.scrollTo(0, 0); // scroll to top of the page
-              setTimeout(() => {
-                window.scrollBy(0, 1); // scroll down 1 pixel
-              }, 1000);
-            },
-          }
-        );
       },
     },
   ],
