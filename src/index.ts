@@ -2,8 +2,10 @@ import barba from '@barba/core';
 import { gsap } from 'gsap';
 
 import { get_dataHero, get_socialData } from '$utils/fetch-data';
+import { loadAttributesScript } from '$utils/fs-attributes';
 import { pTransAppLeft, pTransNftRight } from '$utils/gsap-animation';
 import { loadModelViewerScript } from '$utils/modal-viewer';
+import { appSwiper, loadSwiper } from '$utils/swiper';
 import { loadTypedScript, nftTyping } from '$utils/typed';
 import { callWeglot } from '$utils/weglot';
 
@@ -23,6 +25,25 @@ loadModelViewerScript()
   })
   .catch((error) => {
     console.error('Error loading model viewer script:', error);
+  });
+
+// Load the scripts
+loadAttributesScript('https://cdn.jsdelivr.net/npm/@finsweet/attributes-cmsfilter@1/cmsfilter.js')
+  .then(() => {
+    console.log('CMS Filter script loaded');
+  })
+  .catch((error) => {
+    console.error(error);
+  });
+
+loadAttributesScript(
+  'https://cdn.jsdelivr.net/npm/@finsweet/attributes-codehighlight@1/codehighlight.js'
+)
+  .then(() => {
+    console.log('Code Highlight script loaded');
+  })
+  .catch((error) => {
+    console.error(error);
   });
 
 // reset webflow interactions
@@ -47,6 +68,15 @@ barba.init({
       beforeEnter() {
         get_dataHero();
         get_socialData();
+        // load Swiper
+        loadSwiper()
+          .then(() => {
+            console.log('Swiper script loaded successfully');
+            appSwiper();
+          })
+          .catch((error) => {
+            console.error('Error loading Swiper script:', error);
+          });
       },
       afterEnter() {
         console.log('enter app');
