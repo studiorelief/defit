@@ -2,8 +2,10 @@ import barba from '@barba/core';
 import { gsap } from 'gsap';
 
 import { get_dataHero, get_socialData } from '$utils/fetch-data';
+import { loadAttributesScript } from '$utils/fs-attributes';
 import { pTransAppLeft, pTransNftRight } from '$utils/gsap-animation';
 import { loadModelViewerScript } from '$utils/modal-viewer';
+import { appSwiper, loadSwiper } from '$utils/swiper';
 import { loadTypedScript, nftTyping } from '$utils/typed';
 import { callWeglot } from '$utils/weglot';
 
@@ -25,6 +27,25 @@ loadModelViewerScript()
     console.error('Error loading model viewer script:', error);
   });
 
+// Load the scripts
+loadAttributesScript('https://cdn.jsdelivr.net/npm/@finsweet/attributes-cmsfilter@1/cmsfilter.js')
+  .then(() => {
+    console.log('CMS Filter script loaded');
+  })
+  .catch((error) => {
+    console.error(error);
+  });
+
+loadAttributesScript(
+  'https://cdn.jsdelivr.net/npm/@finsweet/attributes-codehighlight@1/codehighlight.js'
+)
+  .then(() => {
+    console.log('Code Highlight script loaded');
+  })
+  .catch((error) => {
+    console.error(error);
+  });
+
 // reset webflow interactions
 function resetWebflow(data) {
   const parser = new DOMParser();
@@ -35,6 +56,27 @@ function resetWebflow(data) {
   window.Webflow && window.Webflow.ready();
   window.Webflow && window.Webflow.require('ix2').init();
 }
+
+// All leave
+barba.hooks.leave(async (data) => {
+  console.log('global leave hook');
+
+  await gsap.set(data.next.container, {
+    opacity: 0,
+  });
+});
+
+// All enter
+barba.hooks.enter(async (data) => {
+  console.log('global enter hook');
+  // reLoad Weglot
+  callWeglot();
+  // Fade content to opacity 1
+  await gsap.to(data.next.container, {
+    opacity: 1,
+    duration: 0.5,
+  });
+});
 
 // barba.js transitions
 barba.init({
@@ -47,6 +89,15 @@ barba.init({
       beforeEnter() {
         get_dataHero();
         get_socialData();
+        // load Swiper
+        loadSwiper()
+          .then(() => {
+            console.log('Swiper script loaded successfully');
+            appSwiper();
+          })
+          .catch((error) => {
+            console.error('Error loading Swiper script:', error);
+          });
       },
       afterEnter() {
         console.log('enter app');
