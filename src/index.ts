@@ -22,7 +22,7 @@ loadModelViewerScript()
     console.log('Model viewer script loaded successfully');
   })
   .catch((error) => {
-    console.error('Error loading model viewer script:', error);
+    console.error('Error loading model viewer script', error);
   });
 
 // reset webflow interactions

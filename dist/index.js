@@ -5437,7 +5437,7 @@
   loadModelViewerScript().then(() => {
     console.log("Model viewer script loaded successfully");
   }).catch((error) => {
-    console.error("Error loading model viewer script:", error);
+    console.error("Error loading model viewer script", error);
   });
   function resetWebflow(data) {
     const parser = new DOMParser();
