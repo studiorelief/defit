@@ -52,4 +52,21 @@ function pTransNftRight(onComplete) {
   });
 }
 
-export { pTransAppLeft, pTransNftRight };
+function contentFade(onComplete) {
+  const tl = gsap.timeline({
+    onComplete: onComplete,
+  });
+  tl.Fromto(
+    data.next.container,
+    {
+      opacity: 0,
+    },
+    {
+      opacity: 1,
+      duration: 0.5,
+      delay: 0.5,
+    }
+  );
+}
+
+export { contentFade, pTransAppLeft, pTransNftRight };

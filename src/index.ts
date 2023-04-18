@@ -57,6 +57,27 @@ function resetWebflow(data) {
   window.Webflow && window.Webflow.require('ix2').init();
 }
 
+// All leave
+barba.hooks.leave(async (data) => {
+  console.log('global leave hook');
+
+  await gsap.set(data.next.container, {
+    opacity: 0,
+  });
+});
+
+// All enter
+barba.hooks.enter(async (data) => {
+  console.log('global enter hook');
+  // reLoad Weglot
+  callWeglot();
+  // Fade content to opacity 1
+  await gsap.to(data.next.container, {
+    opacity: 1,
+    duration: 0.5,
+  });
+});
+
 // barba.js transitions
 barba.init({
   preventRunning: true,
