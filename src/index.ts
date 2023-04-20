@@ -76,7 +76,7 @@ barba.hooks.leave(async (data) => {
 
 // All enter
 barba.hooks.enter(async (data) => {
-  console.log('global enter hook');
+  console.log('global enter hook ');
   // reLoad Weglot
   callWeglot();
   // Fade content to opacity 1

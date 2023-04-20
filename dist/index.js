@@ -5769,7 +5769,7 @@
     }, 500);
   });
   import_core.default.hooks.enter(async (data2) => {
-    console.log("global enter hook");
+    console.log("global enter hook ");
     callWeglot();
     await gsapWithCSS.to(data2.next.container, {
       opacity: 1,
