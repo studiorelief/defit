@@ -1,5 +1,4 @@
 import barba from '@barba/core';
-import { CountUp } from 'countup.js';
 import { gsap } from 'gsap';
 
 import { get_socialData, initializeDataHero } from '$utils/fetch-data';
@@ -12,6 +11,7 @@ import {
   pTransTeamRight,
 } from '$utils/gsap-animation';
 import { loadModelViewerScript } from '$utils/modal-viewer';
+import { getMobileOperatingSystem, hideElementsByOS } from '$utils/os-function';
 import { appSwiper, loadSwiper } from '$utils/swiper';
 import { loadTypedScript, nftTyping } from '$utils/typed';
 import { callWeglot } from '$utils/weglot';
@@ -42,6 +42,10 @@ loadAttributesScript('https://cdn.jsdelivr.net/npm/@finsweet/attributes-cmsfilte
   .catch((error) => {
     console.error(error);
   });
+
+// Load OS function
+// Exécute la fonction hideElementsByOS au chargement de la page
+document.addEventListener('DOMContentLoaded', hideElementsByOS);
 
 // reset webflow interactions
 function resetWebflow(data) {
@@ -91,8 +95,13 @@ barba.init({
     {
       namespace: 'app',
       beforeEnter() {
+        // API call
         get_socialData();
         initializeDataHero();
+
+        // OS function
+        getMobileOperatingSystem();
+        hideElementsByOS();
 
         // load Swiper
         loadSwiper()
