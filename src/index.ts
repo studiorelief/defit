@@ -3,7 +3,7 @@ import { gsap } from 'gsap';
 
 import { get_dataHero, get_socialData } from '$utils/fetch-data';
 import { loadAttributesScript } from '$utils/fs-attributes';
-import { pTransAppLeft, pTransNftRight } from '$utils/gsap-animation';
+import { pTransAppLeft, pTransBlogRight, pTransNftRight } from '$utils/gsap-animation';
 import { loadModelViewerScript } from '$utils/modal-viewer';
 import { appSwiper, loadSwiper } from '$utils/swiper';
 import { loadTypedScript, nftTyping } from '$utils/typed';
@@ -64,6 +64,13 @@ barba.hooks.leave(async (data) => {
   await gsap.set(data.next.container, {
     opacity: 0,
   });
+  // Scroll to the top of the page after a 500ms timeout
+  setTimeout(() => {
+    window.scrollTo(0, 0);
+    setTimeout(() => {
+      window.scrollBy(0, 1); // Scroll down 1 pixel
+    }, 500);
+  }, 500);
 });
 
 // All enter
@@ -120,6 +127,38 @@ barba.init({
         console.log('enter nft');
       },
     },
+    {
+      namespace: 'team',
+      beforeEnter() {},
+      afterEnter() {
+        console.log('enter team');
+      },
+    },
+    {
+      namespace: 'legals',
+      beforeEnter() {},
+      afterEnter() {
+        console.log('enter legals');
+      },
+    },
+    {
+      namespace: 'blog',
+      beforeEnter() {
+        // Load the scripts
+        loadAttributesScript(
+          'https://cdn.jsdelivr.net/npm/@finsweet/attributes-cmsfilter@1/cmsfilter.js'
+        )
+          .then(() => {
+            console.log('CMS Filter script loaded');
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+      },
+      afterEnter() {
+        console.log('enter blog');
+      },
+    },
   ],
   transitions: [
     {
@@ -139,7 +178,7 @@ barba.init({
           window.scrollTo(0, 0); // scroll to top of the page
           setTimeout(() => {
             window.scrollBy(0, 1); // scroll down 1 pixel
-          }, 1000);
+          }, 500);
         });
       },
 
@@ -157,7 +196,7 @@ barba.init({
         namespace: ['nft'],
       },
 
-      // leave - v1
+      // leave
       leave(data) {
         console.log('leave > nft');
         console.log(data);
@@ -168,12 +207,41 @@ barba.init({
           window.scrollTo(0, 0); // scroll to top of the page
           setTimeout(() => {
             window.scrollBy(0, 1); // scroll down 1 pixel
-          }, 1000);
+          }, 500);
         });
       },
-      // enter - v1
+      // enter
       enter(data) {
         console.log('enter > nft');
+        console.log(data);
+      },
+    },
+
+    {
+      // ANIM BLOG
+      name: 'left to right',
+      sync: true,
+      to: {
+        namespace: ['blog'],
+      },
+
+      // leave
+      leave(data) {
+        console.log('leave > blog');
+        console.log(data);
+        const transitionData = data;
+
+        pTransBlogRight(() => {
+          resetWebflow(transitionData);
+          window.scrollTo(0, 0); // scroll to top of the page
+          setTimeout(() => {
+            window.scrollBy(0, 1); // scroll down 1 pixel
+          }, 500);
+        });
+      },
+      // enter
+      enter(data) {
+        console.log('enter > blog');
         console.log(data);
       },
     },

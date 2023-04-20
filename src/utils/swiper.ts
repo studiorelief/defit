@@ -31,7 +31,7 @@ function appSwiper() {
       spaceBetween: '4%',
       rewind: false,
       mousewheel: {
-        forceToAxis: true,
+        forceToAxis: false,
       },
       keyboard: {
         enabled: true,

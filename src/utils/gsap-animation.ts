@@ -52,6 +52,32 @@ function pTransNftRight(onComplete) {
   });
 }
 
+// Transition pour page Blog > Left to Right
+function pTransBlogRight(onComplete) {
+  const tl = gsap.timeline({
+    onComplete: onComplete, // Add onComplete event to the timeline
+  });
+
+  tl.to('.a--blog-transition', {
+    duration: 0.4,
+    width: '100%',
+    left: '0%',
+    ease: 'ease-out',
+  });
+
+  tl.to('.a--blog-transition', {
+    duration: 0.4,
+    width: '0%',
+    left: '100%',
+    ease: 'ease-out',
+    delay: 0.5,
+  });
+
+  tl.set('.a--blog-transition', {
+    left: '-100%',
+  });
+}
+
 function contentFade(onComplete) {
   const tl = gsap.timeline({
     onComplete: onComplete,
@@ -69,4 +95,4 @@ function contentFade(onComplete) {
   );
 }
 
-export { contentFade, pTransAppLeft, pTransNftRight };
+export { contentFade, pTransAppLeft, pTransBlogRight, pTransNftRight };
