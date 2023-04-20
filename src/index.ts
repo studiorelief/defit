@@ -1,4 +1,5 @@
 import barba from '@barba/core';
+import { CountUp } from 'countup.js';
 import { gsap } from 'gsap';
 
 import { get_dataHero, get_socialData } from '$utils/fetch-data';
@@ -37,16 +38,6 @@ loadModelViewerScript()
 loadAttributesScript('https://cdn.jsdelivr.net/npm/@finsweet/attributes-cmsfilter@1/cmsfilter.js')
   .then(() => {
     console.log('CMS Filter script loaded');
-  })
-  .catch((error) => {
-    console.error(error);
-  });
-
-loadAttributesScript(
-  'https://cdn.jsdelivr.net/npm/@finsweet/attributes-codehighlight@1/codehighlight.js'
-)
-  .then(() => {
-    console.log('Code Highlight script loaded');
   })
   .catch((error) => {
     console.error(error);
@@ -101,7 +92,50 @@ barba.init({
       namespace: 'app',
       beforeEnter() {
         get_dataHero();
-        get_socialData();
+        // V3 with count up & update
+
+        // Function to format numbers with commas
+        function numberWithCommas(x) {
+          return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        }
+
+        const activePlayerCountUp = new CountUp('active-player', 13000, {
+          duration: 4,
+          formattingFn: numberWithCommas,
+        });
+        const activitiesCountUp = new CountUp('activities', 300000, {
+          duration: 4,
+          formattingFn: numberWithCommas,
+        });
+        const kmCountUp = new CountUp('km', 2500000, {
+          duration: 4,
+          formattingFn: numberWithCommas,
+        });
+
+        // Start the count up animation with initial values
+        if (!activePlayerCountUp.error) {
+          activePlayerCountUp.start();
+          activitiesCountUp.start();
+          kmCountUp.start();
+        } else {
+          console.error(activePlayerCountUp.error);
+        }
+
+        // fetch hero data in app
+        async function get_dataHero() {
+          const response = await fetch('https://api.360wellness.io/auth/public/hero/stat');
+          const dataHero = await response.json();
+
+          // Update the count up instances with the fetched data
+          activePlayerCountUp.update(dataHero.numberOfPlayers);
+          activitiesCountUp.update(dataHero.numberOfActivities);
+          kmCountUp.update(dataHero.totalDistance);
+        }
+
+        const activePlayers = document.querySelectorAll('#active-player');
+        activePlayers.forEach((player) => {
+          player.style.color = '#00C4FF';
+        });
         // load Swiper
         loadSwiper()
           .then(() => {
