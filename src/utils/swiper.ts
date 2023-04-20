@@ -15,7 +15,7 @@ function appSwiper() {
     if ($(this).attr('loop-mode') === 'true') {
       loopMode = true;
     }
-    let sliderDuration = 300;
+    let sliderDuration = 325;
     if ($(this).attr('slider-duration') !== undefined) {
       sliderDuration = +$(this).attr('slider-duration');
     }
