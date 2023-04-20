@@ -15,7 +15,7 @@ function appSwiper() {
     if ($(this).attr('loop-mode') === 'true') {
       loopMode = true;
     }
-    let sliderDuration = 300;
+    let sliderDuration = 325;
     if ($(this).attr('slider-duration') !== undefined) {
       sliderDuration = +$(this).attr('slider-duration');
     }
@@ -31,7 +31,7 @@ function appSwiper() {
       spaceBetween: '4%',
       rewind: false,
       mousewheel: {
-        forceToAxis: false,
+        forceToAxis: true,
       },
       keyboard: {
         enabled: true,
@@ -50,7 +50,7 @@ function appSwiper() {
         },
         // desktop
         992: {
-          slidesPerView: 3,
+          slidesPerView: 4,
           spaceBetween: '2%',
         },
       },
