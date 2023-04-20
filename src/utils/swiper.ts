@@ -26,7 +26,7 @@ function appSwiper() {
       centeredSlides: loopMode,
       followFinger: true,
       freeMode: false,
-      slideToClickedSlide: false,
+      slideToClickedSlide: true,
       slidesPerView: 1,
       spaceBetween: '4%',
       rewind: false,
