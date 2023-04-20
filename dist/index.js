@@ -5567,15 +5567,21 @@
     const os = getMobileOperatingSystem();
     if (os === "iOS") {
       const androidButton = document.querySelector(".home-hero_d-button.is-android");
+      const androidQrCodeCards = document.querySelector(".worldwide_qrcode-cards.is-android");
       if (androidButton) {
         androidButton.style.display = "none";
-        console.log("is IOS");
+      }
+      if (androidQrCodeCards) {
+        androidQrCodeCards.style.display = "none";
       }
     } else if (os === "Android") {
       const appleButton = document.querySelector(".home-hero_d-button.is-apple");
+      const appleQrCodeCards = document.querySelector(".worldwide_qrcode-cards.is-apple");
       if (appleButton) {
         appleButton.style.display = "none";
-        console.log("is Andro\xEFd");
+      }
+      if (appleQrCodeCards) {
+        appleQrCodeCards.style.display = "none";
       }
     }
   }
