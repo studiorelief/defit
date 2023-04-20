@@ -3,7 +3,13 @@ import { gsap } from 'gsap';
 
 import { get_dataHero, get_socialData } from '$utils/fetch-data';
 import { loadAttributesScript } from '$utils/fs-attributes';
-import { pTransAppLeft, pTransBlogRight, pTransNftRight } from '$utils/gsap-animation';
+import {
+  pTransAppLeft,
+  pTransBlogRight,
+  pTransLegalsRight,
+  pTransNftRight,
+  pTransTeamRight,
+} from '$utils/gsap-animation';
 import { loadModelViewerScript } from '$utils/modal-viewer';
 import { appSwiper, loadSwiper } from '$utils/swiper';
 import { loadTypedScript, nftTyping } from '$utils/typed';
@@ -163,7 +169,7 @@ barba.init({
   transitions: [
     {
       // ANIM APP
-      name: 'right to left',
+      name: 'app - right to left',
       sync: true,
       to: {
         namespace: ['app'],
@@ -190,7 +196,7 @@ barba.init({
     },
     {
       // ANIM NFT
-      name: 'left to right',
+      name: 'nft - left to right',
       sync: true,
       to: {
         namespace: ['nft'],
@@ -216,10 +222,65 @@ barba.init({
         console.log(data);
       },
     },
+    {
+      // ANIM TEAM
+      name: 'team - left to right',
+      sync: true,
+      to: {
+        namespace: ['team'],
+      },
 
+      // leave
+      leave(data) {
+        console.log('leave > team');
+        console.log(data);
+        const transitionData = data;
+
+        pTransTeamRight(() => {
+          resetWebflow(transitionData);
+          window.scrollTo(0, 0); // scroll to top of the page
+          setTimeout(() => {
+            window.scrollBy(0, 1); // scroll down 1 pixel
+          }, 500);
+        });
+      },
+      // enter
+      enter(data) {
+        console.log('enter > team');
+        console.log(data);
+      },
+    },
+    {
+      // ANIM LEGALS
+      name: 'legals - left to right',
+      sync: true,
+      to: {
+        namespace: ['legals'],
+      },
+
+      // leave
+      leave(data) {
+        console.log('leave > legals');
+        console.log(data);
+        const transitionData = data;
+
+        pTransLegalsRight(() => {
+          resetWebflow(transitionData);
+          window.scrollTo(0, 0); // scroll to top of the page
+          setTimeout(() => {
+            window.scrollBy(0, 1); // scroll down 1 pixel
+          }, 500);
+        });
+      },
+      // enter
+      enter(data) {
+        console.log('enter > legals');
+        console.log(data);
+      },
+    },
     {
       // ANIM BLOG
-      name: 'left to right',
+      name: 'blog - left to right',
       sync: true,
       to: {
         namespace: ['blog'],
