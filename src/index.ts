@@ -1,7 +1,8 @@
 import barba from '@barba/core';
+import { CountUp } from 'countup.js';
 import { gsap } from 'gsap';
 
-import { get_dataHero, get_socialData } from '$utils/fetch-data';
+import { get_socialData, initializeDataHero } from '$utils/fetch-data';
 import { loadAttributesScript } from '$utils/fs-attributes';
 import {
   pTransAppLeft,
@@ -37,16 +38,6 @@ loadModelViewerScript()
 loadAttributesScript('https://cdn.jsdelivr.net/npm/@finsweet/attributes-cmsfilter@1/cmsfilter.js')
   .then(() => {
     console.log('CMS Filter script loaded');
-  })
-  .catch((error) => {
-    console.error(error);
-  });
-
-loadAttributesScript(
-  'https://cdn.jsdelivr.net/npm/@finsweet/attributes-codehighlight@1/codehighlight.js'
-)
-  .then(() => {
-    console.log('Code Highlight script loaded');
   })
   .catch((error) => {
     console.error(error);
@@ -100,8 +91,9 @@ barba.init({
     {
       namespace: 'app',
       beforeEnter() {
-        get_dataHero();
         get_socialData();
+        initializeDataHero();
+
         // load Swiper
         loadSwiper()
           .then(() => {
