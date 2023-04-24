@@ -2827,17 +2827,17 @@
     };
     _proto2.tweenTo = function tweenTo(position, vars) {
       vars = vars || {};
-      var tl = this, endTime = _parsePosition(tl, position), _vars = vars, startAt = _vars.startAt, _onStart = _vars.onStart, onStartParams = _vars.onStartParams, immediateRender = _vars.immediateRender, initted, tween = Tween.to(tl, _setDefaults({
+      var tl2 = this, endTime = _parsePosition(tl2, position), _vars = vars, startAt = _vars.startAt, _onStart = _vars.onStart, onStartParams = _vars.onStartParams, immediateRender = _vars.immediateRender, initted, tween = Tween.to(tl2, _setDefaults({
         ease: vars.ease || "none",
         lazy: false,
         immediateRender: false,
         time: endTime,
         overwrite: "auto",
-        duration: vars.duration || Math.abs((endTime - (startAt && "time" in startAt ? startAt.time : tl._time)) / tl.timeScale()) || _tinyNum,
+        duration: vars.duration || Math.abs((endTime - (startAt && "time" in startAt ? startAt.time : tl2._time)) / tl2.timeScale()) || _tinyNum,
         onStart: function onStart() {
-          tl.pause();
+          tl2.pause();
           if (!initted) {
-            var duration = vars.duration || Math.abs((endTime - (startAt && "time" in startAt ? startAt.time : tl._time)) / tl.timeScale());
+            var duration = vars.duration || Math.abs((endTime - (startAt && "time" in startAt ? startAt.time : tl2._time)) / tl2.timeScale());
             tween._dur !== duration && _setDuration(tween, duration, 0, 1).render(tween._time, true, true);
             initted = 1;
           }
@@ -3073,8 +3073,8 @@
   var _overwritingTween;
   var _forceAllPropTweens;
   var _initTween = function _initTween2(tween, time, tTime) {
-    var vars = tween.vars, ease = vars.ease, startAt = vars.startAt, immediateRender = vars.immediateRender, lazy = vars.lazy, onUpdate = vars.onUpdate, onUpdateParams = vars.onUpdateParams, callbackScope = vars.callbackScope, runBackwards = vars.runBackwards, yoyoEase = vars.yoyoEase, keyframes = vars.keyframes, autoRevert = vars.autoRevert, dur = tween._dur, prevStartAt = tween._startAt, targets = tween._targets, parent = tween.parent, fullTargets = parent && parent.data === "nested" ? parent.vars.targets : targets, autoOverwrite = tween._overwrite === "auto" && !_suppressOverwrites, tl = tween.timeline, cleanVars, i, p, pt, target, hasPriority, gsData, harness, plugin, ptLookup, index, harnessVars, overwritten;
-    tl && (!keyframes || !ease) && (ease = "none");
+    var vars = tween.vars, ease = vars.ease, startAt = vars.startAt, immediateRender = vars.immediateRender, lazy = vars.lazy, onUpdate = vars.onUpdate, onUpdateParams = vars.onUpdateParams, callbackScope = vars.callbackScope, runBackwards = vars.runBackwards, yoyoEase = vars.yoyoEase, keyframes = vars.keyframes, autoRevert = vars.autoRevert, dur = tween._dur, prevStartAt = tween._startAt, targets = tween._targets, parent = tween.parent, fullTargets = parent && parent.data === "nested" ? parent.vars.targets : targets, autoOverwrite = tween._overwrite === "auto" && !_suppressOverwrites, tl2 = tween.timeline, cleanVars, i, p, pt, target, hasPriority, gsData, harness, plugin, ptLookup, index, harnessVars, overwritten;
+    tl2 && (!keyframes || !ease) && (ease = "none");
     tween._ease = _parseEase(ease, _defaults.ease);
     tween._yEase = yoyoEase ? _invertEase(_parseEase(yoyoEase === true ? ease : yoyoEase, _defaults.ease)) : 0;
     if (yoyoEase && tween._yoyo && !tween._repeat) {
@@ -3082,8 +3082,8 @@
       tween._yEase = tween._ease;
       tween._ease = yoyoEase;
     }
-    tween._from = !tl && !!vars.runBackwards;
-    if (!tl || keyframes && !vars.stagger) {
+    tween._from = !tl2 && !!vars.runBackwards;
+    if (!tl2 || keyframes && !vars.stagger) {
       harness = targets[0] ? _getCache(targets[0]).harness : 0;
       harnessVars = harness && vars[harness.prop];
       cleanVars = _copyExcluding(vars, _reservedProps);
@@ -3180,7 +3180,7 @@
     }
     tween._onUpdate = onUpdate;
     tween._initted = (!tween._op || tween._pt) && !overwritten;
-    keyframes && time <= 0 && tl.render(_bigNum, true, true);
+    keyframes && time <= 0 && tl2.render(_bigNum, true, true);
   };
   var _updatePropTweens = function _updatePropTweens2(tween, property, value, start, startIsRelative, ratio, time) {
     var ptCache = (tween._pt && tween._ptCache || (tween._ptCache = {}))[property], pt, rootPT, lookup, i;
@@ -3273,20 +3273,20 @@
         position = null;
       }
       _this3 = _Animation2.call(this, skipInherit ? vars : _inheritDefaults(vars)) || this;
-      var _this3$vars = _this3.vars, duration = _this3$vars.duration, delay = _this3$vars.delay, immediateRender = _this3$vars.immediateRender, stagger = _this3$vars.stagger, overwrite = _this3$vars.overwrite, keyframes = _this3$vars.keyframes, defaults2 = _this3$vars.defaults, scrollTrigger = _this3$vars.scrollTrigger, yoyoEase = _this3$vars.yoyoEase, parent = vars.parent || _globalTimeline, parsedTargets = (_isArray(targets) || _isTypedArray(targets) ? _isNumber(targets[0]) : "length" in vars) ? [targets] : toArray(targets), tl, i, copy, l, p, curTarget, staggerFunc, staggerVarsToMerge;
+      var _this3$vars = _this3.vars, duration = _this3$vars.duration, delay = _this3$vars.delay, immediateRender = _this3$vars.immediateRender, stagger = _this3$vars.stagger, overwrite = _this3$vars.overwrite, keyframes = _this3$vars.keyframes, defaults2 = _this3$vars.defaults, scrollTrigger = _this3$vars.scrollTrigger, yoyoEase = _this3$vars.yoyoEase, parent = vars.parent || _globalTimeline, parsedTargets = (_isArray(targets) || _isTypedArray(targets) ? _isNumber(targets[0]) : "length" in vars) ? [targets] : toArray(targets), tl2, i, copy, l, p, curTarget, staggerFunc, staggerVarsToMerge;
       _this3._targets = parsedTargets.length ? _harness(parsedTargets) : _warn("GSAP target " + targets + " not found. https://greensock.com", !_config.nullTargetWarn) || [];
       _this3._ptLookup = [];
       _this3._overwrite = overwrite;
       if (keyframes || stagger || _isFuncOrString(duration) || _isFuncOrString(delay)) {
         vars = _this3.vars;
-        tl = _this3.timeline = new Timeline({
+        tl2 = _this3.timeline = new Timeline({
           data: "nested",
           defaults: defaults2 || {},
           targets: parent && parent.data === "nested" ? parent.vars.targets : parsedTargets
         });
-        tl.kill();
-        tl.parent = tl._dp = _assertThisInitialized(_this3);
-        tl._start = 0;
+        tl2.kill();
+        tl2.parent = tl2._dp = _assertThisInitialized(_this3);
+        tl2._start = 0;
         if (stagger || _isFuncOrString(duration) || _isFuncOrString(delay)) {
           l = parsedTargets.length;
           staggerFunc = stagger && distribute(stagger);
@@ -3311,21 +3311,21 @@
               _this3._start += delay;
               copy.delay = 0;
             }
-            tl.to(curTarget, copy, staggerFunc ? staggerFunc(i, curTarget, parsedTargets) : 0);
-            tl._ease = _easeMap.none;
+            tl2.to(curTarget, copy, staggerFunc ? staggerFunc(i, curTarget, parsedTargets) : 0);
+            tl2._ease = _easeMap.none;
           }
-          tl.duration() ? duration = delay = 0 : _this3.timeline = 0;
+          tl2.duration() ? duration = delay = 0 : _this3.timeline = 0;
         } else if (keyframes) {
-          _inheritDefaults(_setDefaults(tl.vars.defaults, {
+          _inheritDefaults(_setDefaults(tl2.vars.defaults, {
             ease: "none"
           }));
-          tl._ease = _parseEase(keyframes.ease || vars.ease || "none");
+          tl2._ease = _parseEase(keyframes.ease || vars.ease || "none");
           var time = 0, a, kf, v;
           if (_isArray(keyframes)) {
             keyframes.forEach(function(frame) {
-              return tl.to(parsedTargets, frame, ">");
+              return tl2.to(parsedTargets, frame, ">");
             });
-            tl.duration();
+            tl2.duration();
           } else {
             copy = {};
             for (p in keyframes) {
@@ -3343,16 +3343,16 @@
                   duration: (kf.t - (i ? a[i - 1].t : 0)) / 100 * duration
                 };
                 v[p] = kf.v;
-                tl.to(parsedTargets, v, time);
+                tl2.to(parsedTargets, v, time);
                 time += v.duration;
               }
             }
-            tl.duration() < duration && tl.to({}, {
-              duration: duration - tl.duration()
+            tl2.duration() < duration && tl2.to({}, {
+              duration: duration - tl2.duration()
             });
           }
         }
-        duration || _this3.duration(duration = tl.duration());
+        duration || _this3.duration(duration = tl2.duration());
       } else {
         _this3.timeline = 0;
       }
@@ -3587,9 +3587,9 @@
   });
   _forEachName("staggerTo,staggerFrom,staggerFromTo", function(name) {
     Tween[name] = function() {
-      var tl = new Timeline(), params = _slice.call(arguments, 0);
+      var tl2 = new Timeline(), params = _slice.call(arguments, 0);
       params.splice(name === "staggerFromTo" ? 5 : 4, 0, 0);
-      return tl[name].apply(tl, params);
+      return tl2[name].apply(tl2, params);
     };
   });
   var _setterPlain = function _setterPlain2(target, property, value) {
@@ -3956,8 +3956,8 @@
       (plugins || "").split(",").forEach(function(pluginName) {
         return pluginName && !_plugins[pluginName] && !_globals[pluginName] && _warn(name + " effect requires " + pluginName + " plugin.");
       });
-      _effects[name] = function(targets, vars, tl) {
-        return effect(toArray(targets), _setDefaults(vars || {}, defaults2), tl);
+      _effects[name] = function(targets, vars, tl2) {
+        return effect(toArray(targets), _setDefaults(vars || {}, defaults2), tl2);
       };
       if (extendTimeline) {
         Timeline.prototype[name] = function(targets, vars, position) {
@@ -3978,21 +3978,21 @@
       if (vars === void 0) {
         vars = {};
       }
-      var tl = new Timeline(vars), child, next;
-      tl.smoothChildTiming = _isNotFalse(vars.smoothChildTiming);
-      _globalTimeline.remove(tl);
-      tl._dp = 0;
-      tl._time = tl._tTime = _globalTimeline._time;
+      var tl2 = new Timeline(vars), child, next;
+      tl2.smoothChildTiming = _isNotFalse(vars.smoothChildTiming);
+      _globalTimeline.remove(tl2);
+      tl2._dp = 0;
+      tl2._time = tl2._tTime = _globalTimeline._time;
       child = _globalTimeline._first;
       while (child) {
         next = child._next;
         if (includeDelayedCalls || !(!child._dur && child instanceof Tween && child.vars.onComplete === child._targets[0])) {
-          _addToTimeline(tl, child, child._start - child._delay);
+          _addToTimeline(tl2, child, child._start - child._delay);
         }
         child = next;
       }
-      _addToTimeline(_globalTimeline, tl, 0);
-      return tl;
+      _addToTimeline(_globalTimeline, tl2, 0);
+      return tl2;
     },
     context: function context(func, scope) {
       return func ? new Context(func, scope) : _context;
@@ -5425,141 +5425,147 @@
   // src/utils/gsap-animation.ts
   init_live_reload();
   function pTransAppLeft(onComplete) {
-    const tl = gsapWithCSS.timeline({
+    const tl2 = gsapWithCSS.timeline({
       onComplete
       // Add onComplete event to the timeline
     });
-    tl.to(".a--app-transition", {
+    tl2.to(".a--app-transition", {
       duration: 0.4,
       width: "100%",
       right: "0%",
       ease: "ease-out"
     });
-    tl.to(".a--app-transition", {
+    tl2.to(".a--app-transition", {
       duration: 0.4,
       width: "0%",
       right: "100%",
       ease: "ease-out",
       delay: 0.4
     });
-    tl.set(".a--app-transition", {
+    tl2.set(".a--app-transition", {
       right: "0%"
     });
   }
   function pTransNftRight(onComplete) {
-    const tl = gsapWithCSS.timeline({
+    const tl2 = gsapWithCSS.timeline({
       onComplete
       // Add onComplete event to the timeline
     });
-    tl.to(".a--nft-transition", {
+    tl2.to(".a--nft-transition", {
       duration: 0.4,
       width: "100%",
       left: "0%",
       ease: "ease-out"
     });
-    tl.to(".a--nft-transition", {
+    tl2.to(".a--nft-transition", {
       duration: 0.4,
       width: "0%",
       left: "100%",
       ease: "ease-out",
       delay: 0.5
     });
-    tl.set(".a--nft-transition", {
+    tl2.set(".a--nft-transition", {
       left: "-100%"
     });
   }
   function pTransLegalsRight(onComplete) {
-    const tl = gsapWithCSS.timeline({
+    const tl2 = gsapWithCSS.timeline({
       onComplete
       // Add onComplete event to the timeline
     });
-    tl.to(".a--legals-transition", {
+    tl2.to(".a--legals-transition", {
       duration: 0.4,
       width: "100%",
       left: "0%",
       ease: "ease-out"
     });
-    tl.to(".a--legals-transition", {
+    tl2.to(".a--legals-transition", {
       duration: 0.4,
       width: "0%",
       left: "100%",
       ease: "ease-out",
       delay: 0.5
     });
-    tl.set(".a--legals-transition", {
+    tl2.set(".a--legals-transition", {
       left: "-100%"
     });
   }
   function pTransTeamRight(onComplete) {
-    const tl = gsapWithCSS.timeline({
+    const tl2 = gsapWithCSS.timeline({
       onComplete
       // Add onComplete event to the timeline
     });
-    tl.to(".a--team-transition", {
+    tl2.to(".a--team-transition", {
       duration: 0.4,
       width: "100%",
       left: "0%",
       ease: "ease-out"
     });
-    tl.to(".a--team-transition", {
+    tl2.to(".a--team-transition", {
       duration: 0.4,
       width: "0%",
       left: "100%",
       ease: "ease-out",
       delay: 0.5
     });
-    tl.set(".a--team-transition", {
+    tl2.set(".a--team-transition", {
       left: "-100%"
     });
   }
   function pTransBlogRight(onComplete) {
-    const tl = gsapWithCSS.timeline({
+    const tl2 = gsapWithCSS.timeline({
       onComplete
       // Add onComplete event to the timeline
     });
-    tl.to(".a--blog-transition", {
+    tl2.to(".a--blog-transition", {
       duration: 0.4,
       width: "100%",
       left: "0%",
       ease: "ease-out"
     });
-    tl.to(".a--blog-transition", {
+    tl2.to(".a--blog-transition", {
       duration: 0.4,
       width: "0%",
       left: "100%",
       ease: "ease-out",
       delay: 0.5
     });
-    tl.set(".a--blog-transition", {
+    tl2.set(".a--blog-transition", {
       left: "-100%"
     });
   }
 
   // src/utils/hero-animation.ts
   init_live_reload();
-  function heroAnim() {
-    const tl = gsapWithCSS.timeline({
-      onComplete: () => {
-        heroAnim();
+  var stopVideos = (videoSelectors) => {
+    videoSelectors.forEach((selector3) => {
+      const videoEl = document.querySelector(selector3);
+      if (videoEl) {
+        videoEl.pause();
+        videoEl.currentTime = 0;
       }
     });
-    const stopVideos = (videoSelectors) => {
-      videoSelectors.forEach((selector3) => {
-        const videoEl = document.querySelector(selector3);
-        if (videoEl) {
-          videoEl.pause();
-          videoEl.currentTime = 0;
-        }
-      });
-    };
-    const playVideos = (videoSelectors) => {
-      videoSelectors.forEach((selector3) => {
-        const videoEl = document.querySelector(selector3);
-        if (videoEl) {
-          videoEl.play();
-        }
-      });
-    };
+  };
+  var playVideos = (videoSelectors) => {
+    videoSelectors.forEach((selector3) => {
+      const videoEl = document.querySelector(selector3);
+      if (videoEl) {
+        videoEl.play();
+      }
+    });
+  };
+  var tl;
+  function createTimeline() {
+    tl = gsapWithCSS.timeline({
+      repeat: -1
+      // Make the timeline loop infinitely
+    });
+    tl.set([".a--hero-run", ".a--hero-bike", ".a--hero-swim", ".a--hero-walk"], {
+      width: "0vw"
+    });
+    tl.set(".a--hero-move", {
+      zIndex: 1
+    });
     tl.call(function() {
       const videoSelectors = [
         ".hero-home_video.is-run video",
@@ -5568,17 +5574,6 @@
         ".hero-home_video.is-walk video"
       ];
       stopVideos(videoSelectors);
-    });
-    tl.set([".a--hero-run", ".a--hero-bike", ".a--hero-swim", ".a--hero-walk", ".a--hero-move"], {
-      width: "0vw"
-    });
-    tl.set(".a--hero-move", {
-      width: "100vw",
-      onStart: () => {
-        const videoSelectors = [".hero-home_video.is-move video"];
-        playVideos(videoSelectors);
-      },
-      zIndex: 1
     });
     tl.to(".a--hero-walk", {
       duration: 1,
@@ -5590,13 +5585,13 @@
         playVideos(videoSelectors);
       }
     });
-    tl.set(".a--hero-move", {
-      width: "0vw",
-      zIndex: 6
-    });
     tl.call(() => {
       const videoSelectors = [".hero-home_video.is-move video"];
       stopVideos(videoSelectors);
+    });
+    tl.set(".a--hero-move", {
+      width: "0vw",
+      zIndex: 6
     });
     tl.to(".a--hero-swim", {
       duration: 1,
@@ -5638,6 +5633,18 @@
         playVideos(videoSelectors);
       }
     });
+  }
+  function heroAnim() {
+    if (!tl) {
+      createTimeline();
+    }
+    return tl;
+  }
+  function resetTimeline() {
+    if (tl) {
+      tl.clear();
+      createTimeline();
+    }
   }
 
   // src/utils/modal-viewer.ts
@@ -5888,7 +5895,6 @@
       {
         namespace: "app",
         beforeEnter() {
-          heroAnim();
           get_socialData();
           initializeDataHero();
           getMobileOperatingSystem();
@@ -5902,6 +5908,8 @@
         },
         afterEnter() {
           console.log("enter app");
+          resetTimeline();
+          heroAnim();
         }
       },
       {
@@ -5949,16 +5957,6 @@
           console.log("enter blog");
         }
       }
-      /*     {
-        namespace: 'animation',
-        beforeEnter() {
-          console.log('beforeEnter animation');
-          heroAnim();
-        },
-        afterEnter() {
-          console.log('afterEnter animation');
-        },
-      }, */
     ],
     transitions: [
       {

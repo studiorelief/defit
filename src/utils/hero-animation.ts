@@ -1,30 +1,39 @@
 import { gsap } from 'gsap';
+const stopVideos = (videoSelectors: string[]) => {
+  videoSelectors.forEach((selector) => {
+    const videoEl = document.querySelector(selector) as HTMLVideoElement;
+    if (videoEl) {
+      videoEl.pause();
+      videoEl.currentTime = 0;
+    }
+  });
+};
 
-function heroAnim() {
-  const tl = gsap.timeline({
-    onComplete: () => {
-      heroAnim();
-    },
+const playVideos = (videoSelectors: string[]) => {
+  videoSelectors.forEach((selector) => {
+    const videoEl = document.querySelector(selector) as HTMLVideoElement;
+    if (videoEl) {
+      videoEl.play();
+    }
+  });
+};
+
+let tl;
+
+// Function start
+
+function createTimeline() {
+  tl = gsap.timeline({
+    repeat: -1, // Make the timeline loop infinitely
   });
 
-  const stopVideos = (videoSelectors: string[]) => {
-    videoSelectors.forEach((selector) => {
-      const videoEl = document.querySelector(selector) as HTMLVideoElement;
-      if (videoEl) {
-        videoEl.pause();
-        videoEl.currentTime = 0;
-      }
-    });
-  };
+  tl.set(['.a--hero-run', '.a--hero-bike', '.a--hero-swim', '.a--hero-walk'], {
+    width: '0vw',
+  });
 
-  const playVideos = (videoSelectors: string[]) => {
-    videoSelectors.forEach((selector) => {
-      const videoEl = document.querySelector(selector) as HTMLVideoElement;
-      if (videoEl) {
-        videoEl.play();
-      }
-    });
-  };
+  tl.set('.a--hero-move', {
+    zIndex: 1,
+  });
 
   tl.call(function () {
     const videoSelectors = [
@@ -34,19 +43,6 @@ function heroAnim() {
       '.hero-home_video.is-walk video',
     ];
     stopVideos(videoSelectors);
-  });
-
-  tl.set(['.a--hero-run', '.a--hero-bike', '.a--hero-swim', '.a--hero-walk', '.a--hero-move'], {
-    width: '0vw',
-  });
-
-  tl.set('.a--hero-move', {
-    width: '100vw',
-    onStart: () => {
-      const videoSelectors = ['.hero-home_video.is-move video'];
-      playVideos(videoSelectors);
-    },
-    zIndex: 1,
   });
 
   tl.to('.a--hero-walk', {
@@ -60,14 +56,14 @@ function heroAnim() {
     },
   });
 
-  tl.set('.a--hero-move', {
-    width: '0vw',
-    zIndex: 6,
-  });
-
   tl.call(() => {
     const videoSelectors = ['.hero-home_video.is-move video'];
     stopVideos(videoSelectors);
+  });
+
+  tl.set('.a--hero-move', {
+    width: '0vw',
+    zIndex: 6,
   });
 
   tl.to('.a--hero-swim', {
@@ -115,4 +111,19 @@ function heroAnim() {
   });
 }
 
-export { heroAnim };
+function heroAnim() {
+  if (!tl) {
+    createTimeline();
+  }
+  return tl;
+}
+
+// Add a new function to reset the timeline
+function resetTimeline() {
+  if (tl) {
+    tl.clear();
+    createTimeline();
+  }
+}
+
+export { heroAnim, resetTimeline };

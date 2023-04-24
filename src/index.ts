@@ -10,7 +10,7 @@ import {
   pTransNftRight,
   pTransTeamRight,
 } from '$utils/gsap-animation';
-import { heroAnim } from '$utils/hero-animation';
+import { heroAnim, resetTimeline } from '$utils/hero-animation';
 import { loadModelViewerScript } from '$utils/modal-viewer';
 import { getMobileOperatingSystem, hideElementsByOS } from '$utils/os-function';
 import { appSwiper, loadSwiper } from '$utils/swiper';
@@ -96,8 +96,6 @@ barba.init({
       namespace: 'app',
 
       beforeEnter() {
-        // Launch the hero animation
-        heroAnim();
         get_socialData();
         initializeDataHero();
 
@@ -117,6 +115,9 @@ barba.init({
       },
       afterEnter() {
         console.log('enter app');
+        // Launch the hero animation
+        resetTimeline();
+        heroAnim();
       },
     },
     {
@@ -168,16 +169,6 @@ barba.init({
         console.log('enter blog');
       },
     },
-    /*     {
-      namespace: 'animation',
-      beforeEnter() {
-        console.log('beforeEnter animation');
-        heroAnim();
-      },
-      afterEnter() {
-        console.log('afterEnter animation');
-      },
-    }, */
   ],
   transitions: [
     {
