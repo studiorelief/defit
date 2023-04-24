@@ -10,6 +10,7 @@ import {
   pTransNftRight,
   pTransTeamRight,
 } from '$utils/gsap-animation';
+import { heroAnim } from '$utils/hero-animation';
 import { loadModelViewerScript } from '$utils/modal-viewer';
 import { getMobileOperatingSystem, hideElementsByOS } from '$utils/os-function';
 import { appSwiper, loadSwiper } from '$utils/swiper';
@@ -89,13 +90,14 @@ barba.hooks.enter(async (data) => {
 // barba.js transitions
 barba.init({
   preventRunning: true,
-  cache: false,
   debug: true,
   views: [
     {
       namespace: 'app',
+
       beforeEnter() {
-        // API call
+        // Launch the hero animation
+        heroAnim();
         get_socialData();
         initializeDataHero();
 
@@ -166,6 +168,16 @@ barba.init({
         console.log('enter blog');
       },
     },
+    /*     {
+      namespace: 'animation',
+      beforeEnter() {
+        console.log('beforeEnter animation');
+        heroAnim();
+      },
+      afterEnter() {
+        console.log('afterEnter animation');
+      },
+    }, */
   ],
   transitions: [
     {
