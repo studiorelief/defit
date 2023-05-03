@@ -77,7 +77,7 @@ export { get_dataHero }; */
 
 // Function to get thousands value
 function getThousandsValue(x) {
-  return Math.floor(x / 1000);
+  return Math.floor(x / 100) / 10;
 }
 
 // fetch social data in app
