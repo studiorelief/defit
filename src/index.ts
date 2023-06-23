@@ -1,7 +1,7 @@
 import barba from '@barba/core';
 import { gsap } from 'gsap';
 
-import { get_socialData, initializeDataHero } from '$utils/fetch-data';
+/* import { get_socialData, initializeDataHero } from '$utils/fetch-data'; */
 import { loadAttributesScript } from '$utils/fs-attributes';
 import {
   pTransAppLeft,
@@ -11,11 +11,16 @@ import {
   pTransTeamRight,
 } from '$utils/gsap-animation';
 import { heroAnim, resetTimeline } from '$utils/hero-animation';
+import { updateHomeHeroItem } from '$utils/hero-data';
+/* import { jqueryCC } from '$utils/jquery'; */
 import { loadModelViewerScript } from '$utils/modal-viewer';
 import { getMobileOperatingSystem, hideElementsByOS } from '$utils/os-function';
 import { appSwiper, loadSwiper } from '$utils/swiper';
 import { loadTypedScript, nftTyping } from '$utils/typed';
 import { callWeglot } from '$utils/weglot';
+
+/* // Load jQuery
+jqueryCC(); */
 
 // Load Weglot
 callWeglot()
@@ -96,8 +101,10 @@ barba.init({
       namespace: 'app',
 
       beforeEnter() {
-        get_socialData();
-        initializeDataHero();
+        /* get_socialData(); */
+        // Load TEST hero data
+        updateHomeHeroItem();
+        /* initializeDataHero(); */
 
         // OS function
         getMobileOperatingSystem();
