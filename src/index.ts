@@ -1,6 +1,7 @@
 import barba from '@barba/core';
 import { gsap } from 'gsap';
 
+import { roundNumbersInClass } from '$utils/footer-data';
 /* import { get_socialData, initializeDataHero } from '$utils/fetch-data'; */
 import { loadAttributesScript } from '$utils/fs-attributes';
 import {
@@ -104,6 +105,7 @@ barba.init({
         /* get_socialData(); */
         // Load TEST hero data
         updateHomeHeroItem();
+        roundNumbersInClass();
         /* initializeDataHero(); */
 
         // OS function

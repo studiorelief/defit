@@ -5265,6 +5265,18 @@
   var gsapWithCSS = gsap.registerPlugin(CSSPlugin) || gsap;
   var TweenMaxWithCSS = gsapWithCSS.core.Tween;
 
+  // src/utils/footer-data.ts
+  init_live_reload();
+  function roundNumbersInClass() {
+    const footerData = document.querySelectorAll(".footer_data-cms");
+    for (let i = 0; i < footerData.length; i++) {
+      const num = parseFloat(footerData[i].textContent);
+      if (isNaN(num))
+        continue;
+      footerData[i].textContent = Math.round(num / 1e3);
+    }
+  }
+
   // src/utils/fs-attributes.ts
   init_live_reload();
   function loadAttributesScript(src) {
@@ -5863,6 +5875,7 @@
         namespace: "app",
         beforeEnter() {
           updateHomeHeroItem();
+          roundNumbersInClass();
           getMobileOperatingSystem();
           hideElementsByOS();
           loadSwiper().then(() => {
