@@ -5822,6 +5822,7 @@
   }
 
   // src/index.ts
+  roundNumbersInClass();
   callWeglot().then(() => {
     console.log("Weglot script loaded and initialized successfully");
   }).catch((error) => {
@@ -5875,7 +5876,6 @@
         namespace: "app",
         beforeEnter() {
           updateHomeHeroItem();
-          roundNumbersInClass();
           getMobileOperatingSystem();
           hideElementsByOS();
           loadSwiper().then(() => {

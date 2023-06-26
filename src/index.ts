@@ -23,6 +23,9 @@ import { callWeglot } from '$utils/weglot';
 /* // Load jQuery
 jqueryCC(); */
 
+// Footer number round
+roundNumbersInClass();
+
 // Load Weglot
 callWeglot()
   .then(() => {
@@ -84,6 +87,7 @@ barba.hooks.leave(async (data) => {
 // All enter
 barba.hooks.enter(async (data) => {
   console.log('global enter hook');
+
   // reLoad Weglot
   callWeglot();
   // Fade content to opacity 1
@@ -105,7 +109,6 @@ barba.init({
         /* get_socialData(); */
         // Load TEST hero data
         updateHomeHeroItem();
-        roundNumbersInClass();
         /* initializeDataHero(); */
 
         // OS function
