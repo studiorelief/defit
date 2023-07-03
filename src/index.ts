@@ -24,7 +24,7 @@ import { callWeglot } from '$utils/weglot';
 jqueryCC(); */
 
 // Footer number round
-/* roundNumbersInClass(); */
+roundNumbersInClass();
 
 // Load Weglot
 callWeglot()
