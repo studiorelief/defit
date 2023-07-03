@@ -24,7 +24,7 @@ import { callWeglot } from '$utils/weglot';
 jqueryCC(); */
 
 // Footer number round
-roundNumbersInClass();
+/* roundNumbersInClass(); */
 
 // Load Weglot
 callWeglot()
@@ -87,7 +87,8 @@ barba.hooks.leave(async (data) => {
 // All enter
 barba.hooks.enter(async (data) => {
   console.log('global enter hook');
-
+  // reLoad rubic widget when enter
+  rubicWidget.init(configuration);
   // reLoad Weglot
   callWeglot();
   // Fade content to opacity 1
