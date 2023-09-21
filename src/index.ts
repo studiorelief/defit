@@ -114,6 +114,10 @@ barba.init({
         /* get_socialData(); */
         // Load TEST hero data
         updateHomeHeroItem();
+        // Reset widget
+        rubicWidget.init(configuration);
+        Object.freeze(configuration);
+
         /* initializeDataHero(); */
 
         // OS function
