@@ -5862,7 +5862,6 @@
   });
   import_core.default.hooks.enter(async (data2) => {
     console.log("global enter hook");
-    rubicWidget.init(configuration);
     callWeglot();
     await gsapWithCSS.to(data2.next.container, {
       opacity: 1,

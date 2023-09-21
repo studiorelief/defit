@@ -87,8 +87,12 @@ barba.hooks.leave(async (data) => {
 // All enter
 barba.hooks.enter(async (data) => {
   console.log('global enter hook');
-  // reLoad rubic widget when enter
+
+  /*// reLoad rubic widget when enter --> stop reload car bug NFT >> App 
   rubicWidget.init(configuration);
+  // prevent accidental changes to the object, for example, when re-creating a widget for another theme
+  Object.freeze(configuration); */
+
   // reLoad Weglot
   callWeglot();
   // Fade content to opacity 1
