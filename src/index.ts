@@ -1,6 +1,7 @@
 import barba from '@barba/core';
 import { gsap } from 'gsap';
 
+import { copyFitness } from '$utils/fitness-coin';
 import { roundNumbersInClass } from '$utils/footer-data';
 /* import { get_socialData, initializeDataHero } from '$utils/fetch-data'; */
 import { loadAttributesScript } from '$utils/fs-attributes';
@@ -13,6 +14,7 @@ import {
 } from '$utils/gsap-animation';
 import { heroAnim, resetTimeline } from '$utils/hero-animation';
 import { updateHomeHeroItem } from '$utils/hero-data';
+import { initSwipelux } from '$utils/initSwipelux';
 /* import { jqueryCC } from '$utils/jquery'; */
 import { loadModelViewerScript } from '$utils/modal-viewer';
 import { getMobileOperatingSystem, hideElementsByOS } from '$utils/os-function';
@@ -95,6 +97,7 @@ barba.hooks.enter(async (data) => {
 
   // reLoad Weglot
   callWeglot();
+
   // Fade content to opacity 1
   await gsap.to(data.next.container, {
     opacity: 1,
@@ -117,6 +120,10 @@ barba.init({
         // Reset widget
         rubicWidget.init(configuration);
         Object.freeze(configuration);
+        // Reset copy
+        copyFitness();
+        // reset swipelux
+        initSwipelux();
 
         /* initializeDataHero(); */
 
