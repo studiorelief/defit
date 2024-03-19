@@ -40,6 +40,7 @@
     "@finsweet/eslint-config": "^2.0.3",
     "@finsweet/tsconfig": "^1.2.0",
     "@playwright/test": "^1.31.2",
+    "@types/jquery": "^3.5.29",
     "@typescript-eslint/eslint-plugin": "^5.55.0",
     "@typescript-eslint/parser": "^5.55.0",
     "cross-env": "^7.0.3",
@@ -56,6 +57,7 @@
     "@finsweet/ts-utils": "^0.39.0",
     "countup.js": "^2.6.0",
     "gsap": "^3.11.5",
+    "jquery": "^3.7.1",
     "typed.js": "^2.0.15"
   }
 }
