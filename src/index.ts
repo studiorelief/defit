@@ -14,7 +14,7 @@ import {
 } from '$utils/gsap-animation';
 import { heroAnim, resetTimeline } from '$utils/hero-animation';
 import { updateHomeHeroItem } from '$utils/hero-data';
-/* import { initSwipelux } from '$utils/initSwipelux'; */
+import { initSwipelux } from '$utils/initSwipelux';
 /* import { jqueryCC } from '$utils/jquery'; */
 import { loadModelViewerScript } from '$utils/modal-viewer';
 import { getMobileOperatingSystem, hideElementsByOS } from '$utils/os-function';
@@ -117,13 +117,14 @@ barba.init({
         /* get_socialData(); */
         // Load TEST hero data
         updateHomeHeroItem();
+
         // Reset widget
         /* rubicWidget.init(configuration);
         Object.freeze(configuration); */
         // Reset copy
         copyFitness();
         // reset swipelux
-        /* initSwipelux(); */
+        initSwipelux();
 
         /* initializeDataHero(); */
 
