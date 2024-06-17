@@ -1,4 +1,4 @@
-function loadModelViewerScript(): Promise<void> {
+export function loadModelViewerScript(): Promise<void> {
   return new Promise<void>((resolve, reject) => {
     const script = document.createElement('script');
     script.type = 'module';
@@ -8,5 +8,3 @@ function loadModelViewerScript(): Promise<void> {
     document.head.appendChild(script);
   });
 }
-
-export { loadModelViewerScript };

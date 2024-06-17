@@ -6,7 +6,7 @@ interface CustomWindow extends Window {
 declare const window: CustomWindow;
 
 // Fonction pour détecter l'OS
-function getMobileOperatingSystem(): string {
+export function getMobileOperatingSystem(): string {
   const userAgent = (navigator.userAgent || navigator.vendor || window.opera) ?? '';
 
   if (/windows phone/i.test(userAgent)) {
@@ -22,7 +22,7 @@ function getMobileOperatingSystem(): string {
 }
 
 // Cache les éléments en fonction de l'OS détecté
-function hideElementsByOS(): void {
+export function hideElementsByOS(): void {
   const os = getMobileOperatingSystem();
 
   if (os === 'iOS') {
@@ -52,5 +52,3 @@ function hideElementsByOS(): void {
 
 // Exécute la fonction hideElementsByOS au chargement de la page
 document.addEventListener('DOMContentLoaded', hideElementsByOS);
-
-export { getMobileOperatingSystem, hideElementsByOS };

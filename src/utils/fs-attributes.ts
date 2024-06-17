@@ -1,4 +1,4 @@
-function loadAttributesScript(src: string): Promise<void> {
+export function loadAttributesScript(src: string): Promise<void> {
   return new Promise((resolve, reject) => {
     const script = document.createElement('script');
     script.src = src;
@@ -8,5 +8,3 @@ function loadAttributesScript(src: string): Promise<void> {
     document.head.appendChild(script);
   });
 }
-
-export { loadAttributesScript };

@@ -1,4 +1,4 @@
-function roundNumbersInClass(): void {
+export function roundNumbersInClass(): void {
   // Sélectionner tous les éléments avec la classe .footer_data-cms
   const footerData = document.querySelectorAll<HTMLElement>('.footer_data-cms');
 
@@ -14,6 +14,3 @@ function roundNumbersInClass(): void {
     element.textContent = Math.round(num / 1000).toString();
   });
 }
-
-// Appel de la fonction
-export { roundNumbersInClass };

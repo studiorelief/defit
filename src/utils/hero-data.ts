@@ -1,6 +1,6 @@
 import { CountUp } from 'countup.js';
 
-function updateHomeHeroItem(): void {
+export function updateHomeHeroItem(): void {
   // Function to format numbers with commas
   function numberWithCommas(x: number): string {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
@@ -27,6 +27,3 @@ function updateHomeHeroItem(): void {
     countUpElement.start();
   });
 }
-
-// Appel de la fonction pour mettre à jour le contenu de l'élément
-export { updateHomeHeroItem };

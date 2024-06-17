@@ -18,7 +18,7 @@ import { updateHomeHeroItem } from '$utils/hero-data';
 import { initSwipelux } from '$utils/initSwipelux';
 import { loadModelViewerScript } from '$utils/modal-viewer';
 import { getMobileOperatingSystem, hideElementsByOS } from '$utils/os-function';
-import { appSwiper } from '$utils/swiper';
+/* import { appSwiper } from '$utils/swiper'; */
 import { loadTypedScript, nftTyping } from '$utils/typed';
 import { callWeglot } from '$utils/weglot';
 interface Webflow {
@@ -107,7 +107,7 @@ window.Webflow ||= [];
           initSwipelux();
           getMobileOperatingSystem();
           hideElementsByOS();
-          appSwiper();
+          /* appSwiper(); */
         },
         afterEnter() {
           resetTimeline();

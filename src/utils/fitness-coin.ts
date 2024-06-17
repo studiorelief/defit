@@ -1,4 +1,4 @@
-function copyFitness(): void {
+export function copyFitness(): void {
   // Function to copy text to clipboard
   function copyToClipboard(text: string): void {
     const textArea = document.createElement('textarea');
@@ -44,8 +44,3 @@ function copyFitness(): void {
   // Call the function to truncate the text of elements with the class .fitness-coin_contract-id
   truncateText('.fitness-coin_contract-id');
 }
-
-// To use the functionality, you can now simply call:
-// copyFitness();
-
-export { copyFitness };
