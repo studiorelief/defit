@@ -1,6 +1,3 @@
-<<<<<<< Updated upstream
-/* import { gsap } from 'gsap'; */
-=======
 import { gsap } from 'gsap';
 
 const stopVideos = (videoSelectors: string[]): void => {
@@ -131,4 +128,3 @@ function resetTimeline(): void {
 }
 
 export { heroAnim, resetTimeline };
->>>>>>> Stashed changes
