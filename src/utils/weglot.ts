@@ -1,17 +1,18 @@
-function loadWeglotScript() {
-  return new Promise((resolve) => {
+declare const Weglot: any;
+
+function loadWeglotScript(): Promise<void> {
+  return new Promise<void>((resolve, reject) => {
     const script = document.createElement('script');
     script.src = 'https://cdn.weglot.com/weglot.min.js';
     script.type = 'text/javascript';
     script.async = true;
-    script.onload = () => {
-      resolve();
-    };
+    script.onload = () => resolve();
+    script.onerror = () => reject(new Error('Failed to load Weglot script'));
     document.head.appendChild(script);
   });
 }
 
-async function callWeglot() {
+async function callWeglot(): Promise<void> {
   await loadWeglotScript();
 
   // init Weglot
@@ -29,37 +30,43 @@ async function callWeglot() {
 
   // for each of the .wg-element-wrapper language links
   document.querySelectorAll('.wg-element-wrapper.sw8 [lang]').forEach((link) => {
-    // add a click event listener
-    link.addEventListener('click', function (e) {
-      // prevent default
+    link.addEventListener('click', function (this: HTMLElement, e: Event) {
       e.preventDefault();
-      // switch to the current active language
-      Weglot.switchTo(this.getAttribute('lang'));
-      // call updateDropdownLinks function
-      updateSW8FlagDropdownLinks(this.getAttribute('lang'));
+      const lang = this.getAttribute('lang');
+      if (lang) {
+        // switch to the current active language
+        Weglot.switchTo(lang);
+        // call updateDropdownLinks function
+        updateSW8FlagDropdownLinks(lang);
+      }
     });
   });
 }
 
 // updateFlagDropdownLinks function
-function updateSW8FlagDropdownLinks(currentLang) {
+function updateSW8FlagDropdownLinks(currentLang: string): void {
   // get the wrapper element
   const $wrapper = document.querySelector('.wg-element-wrapper.sw8');
-  // if the .w-dropdown-toggle is not the current active language
-  if ($wrapper.querySelector('.w-dropdown-toggle').getAttribute('lang') !== currentLang) {
-    // swap the dropdown toggle's innerHTML with the current active language link innerHTML
-    const $activeLangLink = $wrapper.querySelector('[lang=' + currentLang + ']');
-    const childDiv = $activeLangLink.innerHTML;
-    const $toggle = $wrapper.querySelector('.w-dropdown-toggle');
-    const toggleDiv = $toggle.innerHTML;
-    $toggle.innerHTML = childDiv;
-    $activeLangLink.innerHTML = toggleDiv;
+  if (!$wrapper) return;
 
-    // swap the dropdown toggle's lang attr with the current active language link lang attr
-    const lang = $activeLangLink.getAttribute('lang');
-    const toggleLang = $toggle.getAttribute('lang');
-    $toggle.setAttribute('lang', lang);
-    $activeLangLink.setAttribute('lang', toggleLang);
+  // if the .w-dropdown-toggle is not the current active language
+  const $toggle = $wrapper.querySelector('.w-dropdown-toggle');
+  if ($toggle && $toggle.getAttribute('lang') !== currentLang) {
+    const $activeLangLink = $wrapper.querySelector(`[lang=${currentLang}]`);
+    if ($activeLangLink) {
+      const childDiv = $activeLangLink.innerHTML;
+      const toggleDiv = $toggle.innerHTML;
+      $toggle.innerHTML = childDiv;
+      $activeLangLink.innerHTML = toggleDiv;
+
+      // swap the dropdown toggle's lang attr with the current active language link lang attr
+      const lang = $activeLangLink.getAttribute('lang');
+      const toggleLang = $toggle.getAttribute('lang');
+      if (lang && toggleLang) {
+        $toggle.setAttribute('lang', lang);
+        $activeLangLink.setAttribute('lang', toggleLang);
+      }
+    }
   }
 }
 

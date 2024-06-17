@@ -1,4 +1,18 @@
-function loadTypedScript() {
+declare global {
+  interface Window {
+    Typed: new (element: string, options: TypedOptions) => void;
+  }
+}
+
+interface TypedOptions {
+  strings: string[];
+  typeSpeed: number;
+  backSpeed: number;
+  fadeOut: boolean;
+  showCursor: boolean;
+}
+
+export function loadTypedScript(): Promise<void> {
   return new Promise((resolve, reject) => {
     const script = document.createElement('script');
     script.src = 'https://unpkg.com/typed.js@2.0.132/dist/typed.umd.js';
@@ -8,26 +22,19 @@ function loadTypedScript() {
   });
 }
 
-function nftTyping() {
-  // If the #typed3 element comes into the viewport, this callback will be run
+export function nftTyping(): void {
   const viewportObserver = new IntersectionObserver((entries, observer) => {
-    // If #typing is within the viewport
     if (entries[0].isIntersecting) {
-      // Run the typed code
-      const typed = new Typed('#typing', {
+      new window.Typed('#typing', {
         strings: ['BECOME A DEFIT <br>WEB3 PLAYER'],
         typeSpeed: 100,
         backSpeed: 0,
         fadeOut: true,
         showCursor: false,
       });
-      // Instruct the IntersectionObserver to stop watching for changes to #typed3, otherwise your typed code will be called more than once
-      observer.unobserve(document.querySelector('#typing'));
+      observer.unobserve(document.querySelector('#typing') as Element);
     }
   });
 
-  // Instruct the IntersectioObserver to observe the #typing element
-  viewportObserver.observe(document.querySelector('#typing'));
+  viewportObserver.observe(document.querySelector('#typing') as Element);
 }
-
-export { loadTypedScript, nftTyping };

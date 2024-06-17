@@ -1,6 +1,13 @@
+interface CustomWindow extends Window {
+  opera?: string;
+  MSStream?: string;
+}
+
+declare const window: CustomWindow;
+
 // Fonction pour détecter l'OS
-function getMobileOperatingSystem() {
-  const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+function getMobileOperatingSystem(): string {
+  const userAgent = (navigator.userAgent || navigator.vendor || window.opera) ?? '';
 
   if (/windows phone/i.test(userAgent)) {
     return 'Windows Phone';
@@ -15,12 +22,14 @@ function getMobileOperatingSystem() {
 }
 
 // Cache les éléments en fonction de l'OS détecté
-function hideElementsByOS() {
+function hideElementsByOS(): void {
   const os = getMobileOperatingSystem();
 
   if (os === 'iOS') {
-    const androidButton = document.querySelector('.home-hero_d-button.is-android');
-    const androidQrCodeCards = document.querySelector('.worldwide_qrcode-cards.is-android');
+    const androidButton = document.querySelector('.home-hero_d-button.is-android') as HTMLElement;
+    const androidQrCodeCards = document.querySelector(
+      '.worldwide_qrcode-cards.is-android'
+    ) as HTMLElement;
     if (androidButton) {
       androidButton.style.display = 'none';
     }
@@ -28,8 +37,10 @@ function hideElementsByOS() {
       androidQrCodeCards.style.display = 'none';
     }
   } else if (os === 'Android') {
-    const appleButton = document.querySelector('.home-hero_d-button.is-apple');
-    const appleQrCodeCards = document.querySelector('.worldwide_qrcode-cards.is-apple');
+    const appleButton = document.querySelector('.home-hero_d-button.is-apple') as HTMLElement;
+    const appleQrCodeCards = document.querySelector(
+      '.worldwide_qrcode-cards.is-apple'
+    ) as HTMLElement;
     if (appleButton) {
       appleButton.style.display = 'none';
     }

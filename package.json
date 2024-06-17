@@ -1,5 +1,5 @@
 {
-  "name": "@ClementMurzeau/DeFit",
+  "name": "@studiorelief/defit",
   "version": "0.0.0",
   "description": "DeFit Website",
   "homepage": "https://github.com/finsweet/developer-starter#readme",
@@ -56,6 +56,14 @@
     "@finsweet/ts-utils": "^0.39.0",
     "countup.js": "^2.6.0",
     "gsap": "^3.11.5",
+<<<<<<< Updated upstream
+=======
+    "jquery": "^3.7.1",
+    "swiper": "^11.1.4",
+>>>>>>> Stashed changes
     "typed.js": "^2.0.15"
+  },
+  "engines": {
+    "pnpm": ">=9"
   }
 }

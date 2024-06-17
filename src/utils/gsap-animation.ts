@@ -1,9 +1,17 @@
 import { gsap } from 'gsap';
 
+type OnCompleteCallback = () => void;
+
+interface TransitionData {
+  next: {
+    container: HTMLElement;
+  };
+}
+
 // Transition pour page APP > Right to Left
-function pTransAppLeft(onComplete) {
+function pTransAppLeft(onComplete: OnCompleteCallback): void {
   const tl = gsap.timeline({
-    onComplete: onComplete, // Add onComplete event to the timeline
+    onComplete: onComplete,
   });
 
   tl.to('.a--app-transition', {
@@ -27,9 +35,9 @@ function pTransAppLeft(onComplete) {
 }
 
 // Transition pour page NFT > Left to Right
-function pTransNftRight(onComplete) {
+function pTransNftRight(onComplete: OnCompleteCallback): void {
   const tl = gsap.timeline({
-    onComplete: onComplete, // Add onComplete event to the timeline
+    onComplete: onComplete,
   });
 
   tl.to('.a--nft-transition', {
@@ -53,9 +61,9 @@ function pTransNftRight(onComplete) {
 }
 
 // Transition pour page Legals > Left to Right
-function pTransLegalsRight(onComplete) {
+function pTransLegalsRight(onComplete: OnCompleteCallback): void {
   const tl = gsap.timeline({
-    onComplete: onComplete, // Add onComplete event to the timeline
+    onComplete: onComplete,
   });
 
   tl.to('.a--legals-transition', {
@@ -79,9 +87,9 @@ function pTransLegalsRight(onComplete) {
 }
 
 // Transition pour page Team > Left to Right
-function pTransTeamRight(onComplete) {
+function pTransTeamRight(onComplete: OnCompleteCallback): void {
   const tl = gsap.timeline({
-    onComplete: onComplete, // Add onComplete event to the timeline
+    onComplete: onComplete,
   });
 
   tl.to('.a--team-transition', {
@@ -105,9 +113,9 @@ function pTransTeamRight(onComplete) {
 }
 
 // Transition pour page Blog > Left to Right
-function pTransBlogRight(onComplete) {
+function pTransBlogRight(onComplete: OnCompleteCallback): void {
   const tl = gsap.timeline({
-    onComplete: onComplete, // Add onComplete event to the timeline
+    onComplete: onComplete,
   });
 
   tl.to('.a--blog-transition', {
@@ -130,11 +138,11 @@ function pTransBlogRight(onComplete) {
   });
 }
 
-function contentFade(onComplete) {
+function contentFade(onComplete: OnCompleteCallback, data: TransitionData): void {
   const tl = gsap.timeline({
     onComplete: onComplete,
   });
-  tl.Fromto(
+  tl.fromTo(
     data.next.container,
     {
       opacity: 0,
