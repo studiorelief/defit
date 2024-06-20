@@ -1,5 +1,6 @@
-import Swiper from 'swiper';
 import 'swiper/css/bundle';
+
+import Swiper from 'swiper';
 
 export function appSwiper(): void {
   const wrappers = document.querySelectorAll('.community_swiper-wrapper');

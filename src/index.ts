@@ -7,11 +7,25 @@ import { copyFitness } from '$utils/fitness-coin';
 import { roundNumbersInClass } from '$utils/footer-data';
 import { loadAttributesScript } from '$utils/fs-attributes';
 import {
-  pTransAppLeft,
+  babyfitScrollHowIt,
+  bagScaleHowIt,
+  counterUpHowIt,
+  createSlideHowIt,
+  heroHowIt,
+  loadHowIt,
+  loadingSquadHowIt,
+  mockupMoveHowIt,
+  parallaxJoinTeamHowIt,
+  parallaxTabsHowIt,
+  parallaxTeamHowIt,
+  pTransAppRight,
   pTransBlogRight,
+  pTransHiwRight,
   pTransLegalsRight,
   pTransNftRight,
   pTransTeamRight,
+  resetGsapHowIt,
+  rewardHowIt,
 } from '$utils/gsap-animation';
 import { heroAnim, resetTimeline } from '$utils/hero-animation';
 import { updateHomeHeroItem } from '$utils/hero-data';
@@ -111,7 +125,12 @@ window.Webflow ||= [];
         },
         afterEnter() {
           resetTimeline();
+          resetGsapHowIt();
           heroAnim();
+        },
+        beforeLeave() {
+          resetTimeline();
+          resetGsapHowIt();
         },
       },
       {
@@ -119,14 +138,53 @@ window.Webflow ||= [];
         beforeEnter() {
           loadTypedScript().then(() => {
             nftTyping();
+            resetTimeline();
+            resetGsapHowIt();
           });
         },
       },
       {
+        namespace: 'how-it-works',
+        beforeEnter() {
+          ScrollTrigger.refresh();
+          resetTimeline();
+        },
+        afterEnter() {
+          setTimeout(() => {
+            heroHowIt();
+            createSlideHowIt();
+            mockupMoveHowIt();
+            rewardHowIt();
+            loadHowIt();
+            bagScaleHowIt();
+            babyfitScrollHowIt();
+            loadingSquadHowIt();
+            counterUpHowIt();
+            parallaxTeamHowIt();
+            parallaxJoinTeamHowIt();
+            parallaxTabsHowIt();
+          }, 500);
+        },
+        beforeLeave() {
+          setTimeout(() => {
+            resetTimeline();
+            resetGsapHowIt();
+          }, 500);
+        },
+      },
+      {
         namespace: 'team',
+        beforeLeave() {
+          resetTimeline();
+          resetGsapHowIt();
+        },
       },
       {
         namespace: 'legals',
+        beforeLeave() {
+          resetTimeline();
+          resetGsapHowIt();
+        },
       },
       {
         namespace: 'blog',
@@ -135,11 +193,15 @@ window.Webflow ||= [];
             'https://cdn.jsdelivr.net/npm/@finsweet/attributes-cmsfilter@1/cmsfilter.js'
           );
         },
+        beforeLeave() {
+          resetTimeline();
+          resetGsapHowIt();
+        },
       },
     ],
     transitions: [
       {
-        name: 'app - right to left',
+        name: 'app - left to right',
         sync: true,
         to: {
           namespace: ['app'],
@@ -147,7 +209,7 @@ window.Webflow ||= [];
         leave(data) {
           if (!data) return; // Check if data is defined
           const transitionData = data;
-          pTransAppLeft(() => {
+          pTransAppRight(() => {
             resetWebflow(transitionData);
             window.scrollTo(0, 0); // scroll to top of the page
             setTimeout(() => {
@@ -166,6 +228,24 @@ window.Webflow ||= [];
           if (!data) return; // Check if data is defined
           const transitionData = data;
           pTransNftRight(() => {
+            resetWebflow(transitionData);
+            window.scrollTo(0, 0); // scroll to top of the page
+            setTimeout(() => {
+              window.scrollBy(0, 1); // scroll down 1 pixel
+            }, 500);
+          });
+        },
+      },
+      {
+        name: 'HIW - left to right',
+        sync: true,
+        to: {
+          namespace: ['how-it-works'],
+        },
+        leave(data) {
+          if (!data) return; // Check if data is defined
+          const transitionData = data;
+          pTransHiwRight(() => {
             resetWebflow(transitionData);
             window.scrollTo(0, 0); // scroll to top of the page
             setTimeout(() => {

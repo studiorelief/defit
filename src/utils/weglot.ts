@@ -1,4 +1,11 @@
-declare const Weglot: any;
+interface IWeglot {
+  initialize(options: { api_key: string }): void;
+  on(event: string, callback: () => void): void;
+  getCurrentLang(): string;
+  switchTo(lang: string): void;
+}
+
+declare const Weglot: IWeglot;
 
 function loadWeglotScript(): Promise<void> {
   return new Promise<void>((resolve, reject) => {
