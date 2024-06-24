@@ -310,10 +310,10 @@ export function loadHowIt() {
   gsap.fromTo(
     '.energy-hiw_loading',
     {
-      width: '50%',
+      width: '0%',
     },
     {
-      width: '100%',
+      width: '75%',
       scrollTrigger: {
         markers: false,
         trigger: '.section_energy-hiw',
@@ -354,7 +354,7 @@ export function babyfitScrollHowIt() {
       scrub: true,
     },
     /* y: '5rem', */
-    x: '15rem',
+    x: '25rem',
   });
   gsap.to('.babyfit-hiw_collection-list-wrapper.is-top', {
     scrollTrigger: {
@@ -365,7 +365,7 @@ export function babyfitScrollHowIt() {
       scrub: true,
     },
     /* y: '5rem', */
-    x: '-15rem',
+    x: '-25rem',
   });
 }
 

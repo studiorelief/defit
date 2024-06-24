@@ -32,9 +32,9 @@ import { updateHomeHeroItem } from '$utils/hero-data';
 import { initSwipelux } from '$utils/initSwipelux';
 import { loadModelViewerScript } from '$utils/modal-viewer';
 import { getMobileOperatingSystem, hideElementsByOS } from '$utils/os-function';
-/* import { appSwiper } from '$utils/swiper'; */
 import { loadTypedScript, nftTyping } from '$utils/typed';
 import { callWeglot } from '$utils/weglot';
+
 interface Webflow {
   destroy: () => void;
   ready: () => void;
@@ -69,38 +69,28 @@ function resetWebflow(data: { next: { html: string } }): void {
 
 window.Webflow ||= [];
 (window.Webflow as (() => void)[]).push(() => {
-  // Load the scripts
   loadAttributesScript(
     'https://cdn.jsdelivr.net/npm/@finsweet/attributes-cmsfilter@1/cmsfilter.js'
   );
 
-  // Load Weglot
   callWeglot();
-
-  // load modalviewser
   loadModelViewerScript();
-
-  // Footer number round
   roundNumbersInClass();
-
-  // Load OS function
   document.addEventListener('DOMContentLoaded', hideElementsByOS);
 
-  // All leave
   barba.hooks.leave(async (data) => {
-    if (!data) return; // Check if data is defined
+    if (!data) return;
     await gsap.set(data.next.container, { opacity: 0 });
     setTimeout(() => {
       window.scrollTo(0, 0);
       setTimeout(() => {
-        window.scrollBy(0, 1); // Scroll down 1 pixel
+        window.scrollBy(0, 1);
       }, 500);
     }, 500);
   });
 
-  // All enter
   barba.hooks.enter(async (data) => {
-    if (!data) return; // Check if data is defined
+    if (!data) return;
     callWeglot();
     await gsap.to(data.next.container, {
       opacity: 1,
@@ -108,7 +98,6 @@ window.Webflow ||= [];
     });
   });
 
-  // barba.js transitions
   barba.init({
     preventRunning: true,
     debug: true,
@@ -121,7 +110,6 @@ window.Webflow ||= [];
           initSwipelux();
           getMobileOperatingSystem();
           hideElementsByOS();
-          /* appSwiper(); */
         },
         afterEnter() {
           resetTimeline();
@@ -146,32 +134,30 @@ window.Webflow ||= [];
       {
         namespace: 'how-it-works',
         beforeEnter() {
-          ScrollTrigger.refresh();
           resetTimeline();
         },
         afterEnter() {
+          const animations = [
+            heroHowIt,
+            createSlideHowIt,
+            mockupMoveHowIt,
+            rewardHowIt,
+            loadHowIt,
+            bagScaleHowIt,
+            babyfitScrollHowIt,
+            loadingSquadHowIt,
+            counterUpHowIt,
+            parallaxTeamHowIt,
+            parallaxJoinTeamHowIt,
+            parallaxTabsHowIt,
+          ];
           setTimeout(() => {
-            ScrollTrigger.refresh();
-            heroHowIt();
-            createSlideHowIt();
-            mockupMoveHowIt();
-            rewardHowIt();
-            loadHowIt();
-            bagScaleHowIt();
-            babyfitScrollHowIt();
-            loadingSquadHowIt();
-            counterUpHowIt();
-            parallaxTeamHowIt();
-            parallaxJoinTeamHowIt();
-            parallaxTabsHowIt();
-          }, 500);
+            Promise.all(animations.map((anim) => anim()));
+          }, 1000);
         },
         beforeLeave() {
-          setTimeout(() => {
-            ScrollTrigger.refresh();
-            resetTimeline();
-            resetGsapHowIt();
-          }, 500);
+          resetTimeline();
+          resetGsapHowIt();
         },
       },
       {
@@ -209,13 +195,13 @@ window.Webflow ||= [];
           namespace: ['app'],
         },
         leave(data) {
-          if (!data) return; // Check if data is defined
+          if (!data) return;
           const transitionData = data;
           pTransAppRight(() => {
             resetWebflow(transitionData);
-            window.scrollTo(0, 0); // scroll to top of the page
+            window.scrollTo(0, 0);
             setTimeout(() => {
-              window.scrollBy(0, 1); // scroll down 1 pixel
+              window.scrollBy(0, 1);
             }, 500);
           });
         },
@@ -227,13 +213,13 @@ window.Webflow ||= [];
           namespace: ['nft'],
         },
         leave(data) {
-          if (!data) return; // Check if data is defined
+          if (!data) return;
           const transitionData = data;
           pTransNftRight(() => {
             resetWebflow(transitionData);
-            window.scrollTo(0, 0); // scroll to top of the page
+            window.scrollTo(0, 0);
             setTimeout(() => {
-              window.scrollBy(0, 1); // scroll down 1 pixel
+              window.scrollBy(0, 1);
             }, 500);
           });
         },
@@ -245,13 +231,13 @@ window.Webflow ||= [];
           namespace: ['how-it-works'],
         },
         leave(data) {
-          if (!data) return; // Check if data is defined
+          if (!data) return;
           const transitionData = data;
           pTransHiwRight(() => {
             resetWebflow(transitionData);
-            window.scrollTo(0, 0); // scroll to top of the page
+            window.scrollTo(0, 0);
             setTimeout(() => {
-              window.scrollBy(0, 1); // scroll down 1 pixel
+              window.scrollBy(0, 1);
             }, 500);
           });
         },
@@ -263,13 +249,13 @@ window.Webflow ||= [];
           namespace: ['team'],
         },
         leave(data) {
-          if (!data) return; // Check if data is defined
+          if (!data) return;
           const transitionData = data;
           pTransTeamRight(() => {
             resetWebflow(transitionData);
-            window.scrollTo(0, 0); // scroll to top of the page
+            window.scrollTo(0, 0);
             setTimeout(() => {
-              window.scrollBy(0, 1); // scroll down 1 pixel
+              window.scrollBy(0, 1);
             }, 500);
           });
         },
@@ -281,13 +267,13 @@ window.Webflow ||= [];
           namespace: ['legals'],
         },
         leave(data) {
-          if (!data) return; // Check if data is defined
+          if (!data) return;
           const transitionData = data;
           pTransLegalsRight(() => {
             resetWebflow(transitionData);
-            window.scrollTo(0, 0); // scroll to top of the page
+            window.scrollTo(0, 0);
             setTimeout(() => {
-              window.scrollBy(0, 1); // scroll down 1 pixel
+              window.scrollBy(0, 1);
             }, 500);
           });
         },
@@ -299,13 +285,13 @@ window.Webflow ||= [];
           namespace: ['blog'],
         },
         leave(data) {
-          if (!data) return; // Check if data is defined
+          if (!data) return;
           const transitionData = data;
           pTransBlogRight(() => {
             resetWebflow(transitionData);
-            window.scrollTo(0, 0); // scroll to top of the page
+            window.scrollTo(0, 0);
             setTimeout(() => {
-              window.scrollBy(0, 1); // scroll down 1 pixel
+              window.scrollBy(0, 1);
             }, 500);
           });
         },
