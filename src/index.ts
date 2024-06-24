@@ -151,6 +151,7 @@ window.Webflow ||= [];
         },
         afterEnter() {
           setTimeout(() => {
+            ScrollTrigger.refresh();
             heroHowIt();
             createSlideHowIt();
             mockupMoveHowIt();
@@ -167,6 +168,7 @@ window.Webflow ||= [];
         },
         beforeLeave() {
           setTimeout(() => {
+            ScrollTrigger.refresh();
             resetTimeline();
             resetGsapHowIt();
           }, 500);
