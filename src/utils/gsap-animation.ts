@@ -457,16 +457,16 @@ export function parallaxTeamHowIt() {
 }
 
 export function parallaxTabsHowIt() {
-  gsap.set('.tabs-hiw_background-wrapper', { y: '-5rem' });
+  gsap.set('.tabs-hiw_background-wrapper', { y: '5rem' });
   gsap.to('.tabs-hiw_background-wrapper', {
     scrollTrigger: {
-      markers: true,
+      markers: false,
       trigger: '.section_create-hiw',
       start: '25% 75%',
-      end: '175% 25%',
+      end: '150% 0%',
       scrub: true,
     },
-    y: '30rem',
+    y: '60rem',
   });
 }
 
