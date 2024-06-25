@@ -350,7 +350,7 @@ export function babyfitScrollHowIt() {
       markers: false,
       trigger: '.section_babyfit-hiw',
       start: '25% 50%',
-      end: '100% 15%',
+      end: '115% 15%',
       scrub: true,
     },
     /* y: '5rem', */
@@ -489,11 +489,11 @@ export function anchorEnter() {
   const ellipses = document.querySelectorAll('.button-hiw_ellipse');
 
   buttons.forEach((button) => {
-    gsap.set(button, { x: '-2rem', opacity: 0 });
+    gsap.set(button, { x: '-4rem', opacity: 0 });
 
     gsap.to(button, {
       scrollTrigger: {
-        markers: true,
+        markers: false,
         trigger: button,
         start: '0% 95%',
         end: '100% 100%',
@@ -509,7 +509,7 @@ export function anchorEnter() {
 
     gsap.to(ellipse, {
       scrollTrigger: {
-        markers: true,
+        markers: false,
         trigger: ellipse,
         start: '50% 75%',
         end: '120% 25%',
