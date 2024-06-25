@@ -16,7 +16,6 @@ import {
   loadHowIt,
   loadingSquadHowIt,
   mockupMoveHowIt,
-  parallaxJoinTeamHowIt,
   parallaxTabsHowIt,
   parallaxTeamHowIt,
   pTransAppRight,
@@ -145,7 +144,6 @@ barba.init({
           loadingSquadHowIt,
           counterUpHowIt,
           parallaxTeamHowIt,
-          parallaxJoinTeamHowIt,
           parallaxTabsHowIt,
           anchorEnter,
         ];

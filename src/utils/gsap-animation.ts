@@ -456,31 +456,17 @@ export function parallaxTeamHowIt() {
   });
 }
 
-export function parallaxJoinTeamHowIt() {
-  gsap.set('.create-hiw_background', { y: '-5rem' });
-  gsap.to('.create-hiw_background', {
-    scrollTrigger: {
-      markers: false,
-      trigger: '.section_create-hiw',
-      start: '0% 75%',
-      end: '100% 25%',
-      scrub: true,
-    },
-    y: '10rem',
-  });
-}
-
 export function parallaxTabsHowIt() {
-  gsap.set('.tabs-hiw_background', { y: '-5rem' });
-  gsap.to('.tabs-hiw_background', {
+  gsap.set('.tabs-hiw_background-wrapper', { y: '-5rem' });
+  gsap.to('.tabs-hiw_background-wrapper', {
     scrollTrigger: {
-      markers: false,
-      trigger: '.section_tabs-hiw',
-      start: '0% 75%',
-      end: '100% 25%',
+      markers: true,
+      trigger: '.section_create-hiw',
+      start: '25% 75%',
+      end: '175% 25%',
       scrub: true,
     },
-    y: '5rem',
+    y: '30rem',
   });
 }
 
