@@ -7,6 +7,7 @@ import { copyFitness } from '$utils/fitness-coin';
 import { roundNumbersInClass } from '$utils/footer-data';
 import { loadAttributesScript } from '$utils/fs-attributes';
 import {
+  anchorEnter,
   babyfitScrollHowIt,
   bagScaleHowIt,
   counterUpHowIt,
@@ -146,6 +147,7 @@ barba.init({
           parallaxTeamHowIt,
           parallaxJoinTeamHowIt,
           parallaxTabsHowIt,
+          anchorEnter,
         ];
         setTimeout(() => {
           Promise.all(animations.map((anim) => anim()));

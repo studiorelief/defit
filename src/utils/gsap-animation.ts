@@ -349,8 +349,8 @@ export function babyfitScrollHowIt() {
     scrollTrigger: {
       markers: false,
       trigger: '.section_babyfit-hiw',
-      start: '-50% 50%',
-      end: '150% 50%',
+      start: '25% 50%',
+      end: '100% 15%',
       scrub: true,
     },
     /* y: '5rem', */
@@ -457,7 +457,7 @@ export function parallaxTeamHowIt() {
 }
 
 export function parallaxJoinTeamHowIt() {
-  gsap.set('.create-hiw_background', { scale: 0.9 });
+  gsap.set('.create-hiw_background', { y: '-5rem' });
   gsap.to('.create-hiw_background', {
     scrollTrigger: {
       markers: false,
@@ -466,7 +466,7 @@ export function parallaxJoinTeamHowIt() {
       end: '100% 25%',
       scrub: true,
     },
-    scale: 1,
+    y: '10rem',
   });
 }
 
@@ -481,5 +481,41 @@ export function parallaxTabsHowIt() {
       scrub: true,
     },
     y: '5rem',
+  });
+}
+
+export function anchorEnter() {
+  const buttons = document.querySelectorAll('.button-hiw_component');
+  const ellipses = document.querySelectorAll('.button-hiw_ellipse');
+
+  buttons.forEach((button) => {
+    gsap.set(button, { x: '-2rem', opacity: 0 });
+
+    gsap.to(button, {
+      scrollTrigger: {
+        markers: true,
+        trigger: button,
+        start: '0% 95%',
+        end: '100% 100%',
+        toggleActions: 'play none none reset',
+      },
+      x: '0rem',
+      opacity: 1,
+    });
+  });
+
+  ellipses.forEach((ellipse) => {
+    gsap.set(ellipse, { scale: 0.75 });
+
+    gsap.to(ellipse, {
+      scrollTrigger: {
+        markers: true,
+        trigger: ellipse,
+        start: '50% 75%',
+        end: '120% 25%',
+        scrub: true,
+      },
+      scale: 1.25,
+    });
   });
 }
