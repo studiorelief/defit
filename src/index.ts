@@ -26,6 +26,7 @@ import {
   pTransTeamRight,
   resetGsapHowIt,
   rewardHowIt,
+  slideFromLeft,
 } from '$utils/gsap-animation';
 import { heroAnim, resetTimeline } from '$utils/hero-animation';
 import { updateHomeHeroItem } from '$utils/hero-data';
@@ -146,6 +147,7 @@ barba.init({
           parallaxTeamHowIt,
           parallaxTabsHowIt,
           anchorEnter,
+          slideFromLeft,
         ];
         setTimeout(() => {
           Promise.all(animations.map((anim) => anim()));

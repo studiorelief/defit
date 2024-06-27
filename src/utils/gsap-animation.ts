@@ -313,7 +313,7 @@ export function loadHowIt() {
       width: '0%',
     },
     {
-      width: '75%',
+      width: '70%',
       scrollTrigger: {
         markers: false,
         trigger: '.section_energy-hiw',
@@ -503,5 +503,25 @@ export function anchorEnter() {
       },
       scale: 1.25,
     });
+  });
+}
+
+export function slideFromLeft() {
+  const elements = document.querySelectorAll('.hero-hiw_span');
+  elements.forEach((element) => {
+    gsap.fromTo(
+      element,
+      { opacity: 0, left: '-2rem', position: 'relative' },
+      {
+        opacity: 1,
+        left: '0rem',
+        scrollTrigger: {
+          trigger: element,
+          start: 'top 80%',
+          end: 'top 50%',
+          toggleActions: 'play none none reset',
+        },
+      }
+    );
   });
 }
