@@ -384,7 +384,7 @@ export function loadingSquadHowIt() {
         scrub: true,
       },
       /* y: '5rem', */
-      width: '60%',
+      width: '100%',
       duration: 2.5,
       stagger: 0.5,
     }
