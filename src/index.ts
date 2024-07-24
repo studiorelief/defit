@@ -96,6 +96,7 @@ barba.hooks.enter(async (data) => {
 });
 
 barba.init({
+  prevent: ({ el }) => el.classList && el.classList.contains('prevent-barba'),
   preventRunning: true,
   debug: true,
   views: [
