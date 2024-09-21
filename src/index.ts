@@ -71,6 +71,7 @@ function resetWebflow(data: { next: { html: string } }): void {
 loadAttributesScript('https://cdn.jsdelivr.net/npm/@finsweet/attributes-cmsfilter@1/cmsfilter.js');
 
 callWeglot();
+initSwipelux();
 loadModelViewerScript();
 roundNumbersInClass();
 document.addEventListener('DOMContentLoaded', hideElementsByOS);
@@ -96,7 +97,7 @@ barba.hooks.enter(async (data) => {
 });
 
 barba.init({
-  prevent: ({ el }) => el.classList && el.classList.contains('prevent-barba'),
+  prevent: ({ el }) => el.classList && el.classList.contains('prevent-barba'), // prevent barba for anchor
   preventRunning: true,
   debug: true,
   views: [
